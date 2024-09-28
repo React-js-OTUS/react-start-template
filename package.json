@@ -10,7 +10,9 @@
     "test": "jest src",
     "lint": "eslint src --fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "predeploy": "npm run build",
+    "deploy": "npm run predeploy && gh-pages -d dist"
   },
   "license": "MIT",
   "devDependencies": {
@@ -65,7 +67,9 @@
   },
   "dependencies": {
     "clsx": "^1.2.1",
+    "gh-pages": "^6.1.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uuid": "^10.0.0"
   }
 }
