@@ -1,11 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Layout } from './components/layout.module';
+import { Header } from './components/header.module';
+import { Logo } from './components/logo.module';
+import { Operation } from './components/operation/operation';
+import {ImageSlider}  from './components/custom-slider/image.slider';
+import access from  "/Users/marinayavkina/Documents/react_course/hw2/MarinaBastion.github.io/src/stories/assets/code-brackets.svg";
+import gith from "/Users/marinayavkina/Documents/react_course/hw2/MarinaBastion.github.io/src/app/assets/icons8-logo.svg"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header"> 
         <img src={logo} className="App-logo" alt="logo" />
         <p>Явкина Марина Александровна
         <ul>
