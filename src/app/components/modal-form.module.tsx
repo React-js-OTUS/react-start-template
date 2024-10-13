@@ -15,10 +15,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ isVisible, children }) => 
         setShowModal(false);   
     }, []);
 
-    useEffect(() => {
-        
-      }, []);
-    
+      
       return isShowModal? (
         <div className={Styles.wrap}>
             <div className={Styles.content}>
@@ -34,5 +31,3 @@ export const ModalForm: React.FC<ModalFormProps> = ({ isVisible, children }) => 
         </div>
       ) : null;  
 };
-
-//export default ModalForm;
