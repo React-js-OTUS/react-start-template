@@ -32,11 +32,26 @@ module.exports = (_, args) => {
     output: {
       path: dist,
       publicPath:
-        args.mode === 'development' ? `http://${host}:${port}/` : undefined /* <- прописать данные своего github */,
+        args.mode === 'development' ? `http://${host}:${port}/` : `https://marinabastion.github.io` /* <- прописать данные своего github */,
       filename: `js/[name].js`,
       chunkFilename: `js/[name].js`,
     },
     module: {
+      rules: 
+      [
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+            },
+          ],
+        },
+        {
+          test: /\.svg$/,
+          loader: 'svg-inline-loader'
+        }
+      ],
       rules: [
         {
           test: /\.(js|ts)x?$/,
@@ -59,7 +74,14 @@ module.exports = (_, args) => {
             {
               loader: MiniCssExtractPlugin.loader,
             },
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: '[name]_[local]-[hash:base64:5]',
+                },
+              },
+            },
           ],
         },
         {
@@ -67,7 +89,7 @@ module.exports = (_, args) => {
           type: 'asset/inline',
         },
         {
-          test: /\.s[ac]ss$/i,
+          test: /\.s[ac]ss$/i,///\.(sa|sc|c)ss$/i,
           use: [
             {
               loader: MiniCssExtractPlugin.loader,
