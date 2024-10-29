@@ -4,24 +4,29 @@ import Styles from './App.css';
 import {ThemeContext,ThemeProvider,Theme} from "./components/theme-provider/theme.provider";
 import {LangContext,LangProvider,Lang} from "./components/lang-provider /lang.provider";
 import {ButtonGroup} from "./components/theme-toggler/group-buttons"
+import {ShowModal} from "./components/show-modal-from/show.modal.from"
 import { useContext } from "react";
-import { useTranslation } from 'react-i18next';;
+import { useTranslation } from 'react-i18next';
+import { ProductList} from "./components/product-list/product-list";
+import { Product,CreateRandomProduct } from "src/homeworks/ts1/3_write";
+
  
 function App() {
+  
    const themeFromC = useContext(ThemeContext);
    const [theme, setTheme] = useState<Theme>(themeFromC.themeName ) ;
    const  langFromC = useContext(LangContext);
    const [lang, setLang] = useState<Lang>(langFromC.langName ) ;
    const { t } = useTranslation('translation', { lng: lang });
+   let ps: Product[] ;
+   ps = [CreateRandomProduct(new Date().toDateString())];
 
    const getThemeName = (event:React.MouseEvent<HTMLButtonElement>) => {
-    debugger;
     let v = event.target as HTMLButtonElement;   
     console.log(v.name);
     setTheme(v.name as Theme);
   };
   const getLangName = (event:React.MouseEvent<HTMLButtonElement>) => {
-    debugger;
     let v = event.target as HTMLButtonElement;   
     console.log(v.name);
     setLang(v.name as Lang);
@@ -29,8 +34,11 @@ function App() {
 
 
   return (
+   
   <LangProvider langName={lang} children = {
       <div className={Styles.App}>
+        <ShowModal child = {""}></ShowModal>
+        <ProductList />
         <ThemeProvider themeName={theme} children = {
         <header className={Styles.Appheader}>
           <div className={Styles.buttonGroup}>

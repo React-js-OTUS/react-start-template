@@ -44,7 +44,7 @@ let GetRandomImage = () : string =>
 {
     var images = ["agustin-diaz-gargiulo-7F65HDP0-E0-unsplash", "business-people-shaking-hands-together", "graphic-node-qOTyvyjVyoY-unsplash", "urban-vintage-VfUN94cUy4o-unsplash"];
     var randomPick = images[Math.random() * images.length | 0];
-    return  "./assets/" + randomPick + ".jpg";
+    return  randomPick + ".jpg";
 }
 let GetRandomName = (): string => 
 {
