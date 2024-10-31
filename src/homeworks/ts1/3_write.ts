@@ -72,7 +72,7 @@ export class GuidGenerator {
 
   export const  CreateRandomProduct = (CreatedAt: string): Product => {
    let category1: Category = {id: GuidGenerator.standard(), name: GetRandomName(),photo: GetRandomImage()};
-   let product: Product = { id: GuidGenerator.standard(), photo: GetRandomImage(),name: GetRandomName(),desc:'',createdAt: CreatedAt,oldPrice:Math.random() * 100,
+   let product: Product = { id: GuidGenerator.standard(), photo: GetRandomImage(),name: GetRandomName(),desc:'bfjkenvklelkvnlek',createdAt: CreatedAt,oldPrice:Math.random() * 100,
        price:Math.random() * 100, category: category1};
     return  product; 
 }

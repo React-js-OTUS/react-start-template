@@ -3,18 +3,17 @@ import type { MouseEventHandler } from "react";
 import Styles from './modal-form.module.css'
 import Portal, { createContainer } from "./portal/portal";
 
-const MODAL_CONTAINER_ID = "modal-container-id";
-
 interface  ModalFormProps {
   isVisible: boolean,
-  onClose: () => void;
+  modalContainerId: string,
+  onClose: () => void,
   children: React.ReactNode | React.ReactNode[]
 }
 
-export const ModalForm: React.FC<ModalFormProps> = ({ isVisible, onClose, children }) => {
+export const ModalForm: React.FC<ModalFormProps> = ({ isVisible,modalContainerId, onClose, children }) => {
     const [isShowModal, setShowModal] = useState(false);
     useEffect(() => {
-        createContainer({ id: MODAL_CONTAINER_ID });
+        createContainer({ id: modalContainerId });
         setShowModal(true);
       }, []);
 
@@ -23,7 +22,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ isVisible, onClose, childr
     }, [onClose]);
 
       return isShowModal? (
-        <Portal id={MODAL_CONTAINER_ID}>
+        <Portal id={modalContainerId}>
         <div className={Styles.wrap}>
             <div className={Styles.content}>
                 <div className={Styles.header}>

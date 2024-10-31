@@ -7,8 +7,11 @@ import {ButtonGroup} from "./components/theme-toggler/group-buttons"
 import {ShowModal} from "./components/show-modal-from/show.modal.from"
 import { useContext } from "react";
 import { useTranslation } from 'react-i18next';
-import { ProductList} from "./components/product-list/product-list";
+import { ItemList} from "./components/product-list/product-list";
 import { Product,CreateRandomProduct } from "src/homeworks/ts1/3_write";
+import { OperationShop ,OperationShopShortProps} from './components/operation.shop.short/operation-shop-short';
+import { P } from 'storybook-static/598.4d5f2cc0.iframe.bundle';
+
 
  
 function App() {
@@ -17,6 +20,7 @@ function App() {
    const [theme, setTheme] = useState<Theme>(themeFromC.themeName ) ;
    const  langFromC = useContext(LangContext);
    const [lang, setLang] = useState<Lang>(langFromC.langName ) ;
+   const [prod, setProd] = useState<Product>() ;
    const { t } = useTranslation('translation', { lng: lang });
    let ps: Product[] ;
    ps = [CreateRandomProduct(new Date().toDateString())];
@@ -32,13 +36,18 @@ function App() {
     setLang(v.name as Lang);
   };
 
+  const addNewItem =(date_dt: string) => {
+    let newprod =CreateRandomProduct(date_dt);
+    setProd(newprod);
+    return CreateRandomProduct(date_dt)}
 
   return (
    
   <LangProvider langName={lang} children = {
       <div className={Styles.App}>
-        <ShowModal child = {""}></ShowModal>
-        <ProductList />
+        <ShowModal modalContainerId="modal_container_id" child = {""}></ShowModal>
+        <ItemList returnNewItem={addNewItem} children= {({ price =prod.price,photo =prod.photo,name = prod.name,category_name = prod.category.name, description = prod.desc}) => <OperationShop   photo ={photo} price={price} name= {name} category_name= {category_name} description= {description} />
+      } />
         <ThemeProvider themeName={theme} children = {
         <header className={Styles.Appheader}>
           <div className={Styles.buttonGroup}>

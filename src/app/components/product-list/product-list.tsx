@@ -1,54 +1,50 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import Styles from './products.list.module.css';
-import { OperationShop } from '../operation.shop.short/operation-shop-short';
+import { OperationShop, OperationShopShortProps } from '../operation.shop.short/operation-shop-short';
 import { Product,CreateRandomProduct } from "src/homeworks/ts1/3_write";
+import useIntersectionObserver from "src/app/ hooks/useIntersectionObserver";
+import { OperationShopProps } from "../operation.shop/operation-shop";
 
-export const ProductList = () => {
-  const [products, setProducts] = useState([]);
+export interface IItemContent{
+    returnNewItem: (arg:string) => any ;
+    children: (props:(any ) ) => ReactNode;
+}
+
+
+export const ItemList: FC<IItemContent> = ({returnNewItem,children}) => {
+  const [items, setItems] = useState([]);
   const [next, setNext] = useState(1);
   const [loading, setLoading] = useState(false);
-  //const [hasMore, setHasMore] = useState(true);
-  const observer = useRef<IntersectionObserver | null>(null);
+  //const observer = useRef<IntersectionObserver | null>(null);
 
   const loadMoreProducts = useCallback(async () => {
+    debugger;
     setLoading(true);
-   const newProduct = CreateRandomProduct(new Date().toDateString());
-        setProducts((prevProd) => [...prevProd, newProduct]);    
+   //const newProduct = CreateRandomProduct(new Date().toDateString());
+   const newItem = returnNewItem(new Date().toDateString());
+    setItems((prevItem) => [...prevItem, newItem]);    
     setLoading(false);
   }, [next]);
 
   useEffect(() => {
-    
+    debugger;
       loadMoreProducts();
     
   }, [loadMoreProducts]);
 
-  const lastProductElementRef = useCallback(
-    (node: HTMLLIElement) => {
-      if (loading ) return; 
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          setNext((prev) => prev + 1); 
-        }
-      });
-
-      if (node) observer.current.observe(node);
-    },
-    [loading]
-  );
+  const lastProductElementRef =  useIntersectionObserver<HTMLLIElement>(() => setNext((prev) => prev + 1),[loading])
 
   return (
     <div>
       <ul>
-        {products.map((item, index) => (
+        {items.map((item, index) => (
           <li
             key={item.id} 
-            ref={products.length === index + 1 ? lastProductElementRef : null}
+            ref={items.length === index + 1 ? lastProductElementRef : null}
           >
-           <OperationShop   image ={item.photo} price={item.price} name= {item.name} category_name= {item.category.name} description= {item.desc} />
-     
+            {children(item)}
+           {/* <OperationShop   image ={item.photo} price={item.price} name= {item.name} category_name= {item.category.name} description= {item.desc} />
+      */}
           </li>
         ))}
       </ul>
