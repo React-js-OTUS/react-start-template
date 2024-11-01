@@ -1,0 +1,26 @@
+.productFull {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.productFull img {
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.productFull h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.productFull p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0 20px;
+}
