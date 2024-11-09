@@ -1,0 +1,25 @@
+$light-theme-background: lightgray;
+$light-theme-text: #000000;
+
+$dark-theme-background: #333333;
+$dark-theme-text: #ffffff;
+
+:root {
+  --background: $light-theme-background;
+  --text-color: $light-theme-text;
+}
+
+[data-theme='dark'] {
+  --background: $dark-theme-background;
+  --text-color: $dark-theme-text;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-color);
+}
+
+div {
+  background-color: var(--background);
+  color: var(--text-color);
+}

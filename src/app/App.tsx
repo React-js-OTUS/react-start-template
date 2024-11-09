@@ -1,25 +1,26 @@
 import React from 'react';
 import { Layout } from 'src/shared/layout/layout';
+import { ThemeProvider } from 'src/shared/context/theme-context/theme-context';
+import { ExampleCpomp } from 'src/shared/example-comp/example-comp';
+
 import './App.scss';
-import { ThemeProvider, useThemeContext } from 'src/shared/context/theme-context/theme-context';
+
+import '../styles.scss';
 
 function App() {
-  const { theme } = useThemeContext();
+  const exampleArray = [...Array(5).keys()].map((i) => i + 1);
 
-  // <div className={theme === 'dark' ? 'darkTheme' : 'lightTheme'}>
   return (
     <ThemeProvider>
-      <div className="darkTheme">
-        <Layout>
-          <header className="App-header">
-            <div className="App-tg">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus rerum dolorum explicabo velit? Rerum
-              nemo in porro explicabo qui praesentium eveniet quis, ipsa expedita dignissimos? Porro voluptates libero
-              illum et!
-            </div>
-          </header>
-        </Layout>
-      </div>
+      <Layout>
+        <header className="App-header">
+          <div className="content">
+            {exampleArray.map((i) => (
+              <ExampleCpomp key={i} />
+            ))}
+          </div>
+        </header>
+      </Layout>
     </ThemeProvider>
   );
 }
