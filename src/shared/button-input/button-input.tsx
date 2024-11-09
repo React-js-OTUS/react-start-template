@@ -1,9 +1,14 @@
 import React, { FC, useState } from 'react';
 import { ModalInput } from '../modal-input/modal-input';
 
-export const ButtonInput: FC = () => {
-  const [valueInput, setValueInput] = useState<string>('');
-  const [visible, setIsVisible] = useState<boolean>();
+interface ButtonInputProps {
+  initialInputValue?: string;
+  initialVisible?: boolean;
+}
+
+export const ButtonInput: FC<ButtonInputProps> = ({ initialInputValue = '', initialVisible }) => {
+  const [valueInput, setValueInput] = useState<string>(initialInputValue);
+  const [visible, setIsVisible] = useState<boolean>(initialVisible);
 
   const handleOpenModal = () => {
     setIsVisible((prev) => !prev);
