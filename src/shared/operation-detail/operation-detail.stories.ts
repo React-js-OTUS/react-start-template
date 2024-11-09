@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react';
-import OperationDetail from './OperationDetail';
+import OperationDetail from './operation-detail';
 
 const meta: Meta<typeof OperationDetail> = {
   title: 'Components/OperationDetail',
@@ -56,7 +56,6 @@ const meta: Meta<typeof OperationDetail> = {
 
 export default meta;
 
-// История для компонента с заполненными пропсами
 export const DefaultOperationDetail = {
   args: {
     price: 150,

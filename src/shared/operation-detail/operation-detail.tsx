@@ -1,5 +1,5 @@
 import React from 'react';
-import './OperationDetail.css';
+import './operation-detail.css';
 
 interface OperationDetailProps {
   price: number;

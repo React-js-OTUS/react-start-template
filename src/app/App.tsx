@@ -1,32 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import tg from './telegram_logo.svg';
-import './App.css';
 import { Layout } from 'src/shared/layout/layout';
+import './App.scss';
+import { ThemeProvider, useThemeContext } from 'src/shared/context/theme-context/theme-context';
 
 function App() {
+  const { theme } = useThemeContext();
+
+  // <div className={theme === 'dark' ? 'darkTheme' : 'lightTheme'}>
   return (
-    <div className="App">
-      <Layout>
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Приветствую! Меня зовут Марусов Андрей, и я Junior разработчик. В мои руки уже попали React, различные
-            сборщики и state менеджеры, и я с удовольствием работаю с этими инструментами.{' '}
-          </p>
-          <p>
-            На этом курсе мне хочется укрепить свои знания, освоить новые технологии и, самое главное, начать глубже
-            понимать, как всё это работает изнутри.{' '}
-          </p>
-          <div className="App-tg">
-            Контакты:
-            <a href="https://t.me/marusov_aa" target="_blank" rel="noopener noreferrer">
-              <img src={tg} className="App-tg-logo" alt="tg_logo" />
-            </a>
-          </div>
-        </header>
-      </Layout>
-    </div>
+    <ThemeProvider>
+      <div className="darkTheme">
+        <Layout>
+          <header className="App-header">
+            <div className="App-tg">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus rerum dolorum explicabo velit? Rerum
+              nemo in porro explicabo qui praesentium eveniet quis, ipsa expedita dignissimos? Porro voluptates libero
+              illum et!
+            </div>
+          </header>
+        </Layout>
+      </div>
+    </ThemeProvider>
   );
 }
 
