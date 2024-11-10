@@ -1,0 +1,16 @@
+.container {
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.container.light {
+  background-color: lightgray;
+}
+
+.container.dark {
+  background-color: #333333;
+}
+
+.container.dark p {
+  color: white;
+}

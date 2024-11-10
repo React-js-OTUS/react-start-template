@@ -1,0 +1,45 @@
+.operation-detail {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 16px;
+  text-align: center;
+  max-width: 400px;
+}
+
+.operation-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.operation-title {
+  font-size: 1.5rem;
+  margin: 8px 0;
+}
+
+.operation-category {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.operation-description {
+  font-size: 1rem;
+  color: #777;
+  margin: 8px 0;
+}
+
+.operation-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.btn-add-to-cart {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: not-allowed; 
+}

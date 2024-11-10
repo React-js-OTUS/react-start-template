@@ -13,7 +13,7 @@ it('remove it', () => {
 //       { id: 3, name: 'Bob', age: 32, isSubscribed: true },
 //       { id: 4, name: 'Alice', age: 22, isSubscribed: true },
 //       { id: 5, name: 'David', age: 48, isSubscribed: false },
-//     ];
+//    .github/workflows/main.yml ];
 //
 //     expect(transformCustomers(customers)).toEqual({
 //       1: { name: 'John', age: 25, isSubscribed: true },

@@ -1,0 +1,28 @@
+.operation-full {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .operation-full__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .operation-full__edit-button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .operation-full__info p {
+    margin: 8px 0;
+  }
+  

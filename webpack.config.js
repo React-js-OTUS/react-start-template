@@ -27,64 +27,71 @@ module.exports = (_, args) => {
         src,
       },
     },
-
     entry: './index.tsx',
     output: {
       path: dist,
-      publicPath:
-        args.mode === 'development' ? `http://${host}:${port}/` : undefined /* <- прописать данные своего github */,
+      publicPath: args.mode === 'development' ? `http://${host}:${port}/` : undefined,
       filename: `js/[name].js`,
       chunkFilename: `js/[name].js`,
     },
     module: {
       rules: [
+        // Babel Loader для JavaScript и TypeScript файлов
         {
           test: /\.(js|ts)x?$/,
           loader: require.resolve('babel-loader'),
           exclude: /node_modules/,
         },
+        // Обработка SCSS модулей (только .module.scss)
         {
-          test: /\.less$/,
+          test: /\.module\.s[ac]ss$/i,
           use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
-            'css-loader',
-            'less-loader',
-          ],
-        },
-        {
-          test: /\.css$/,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
-            'css-loader',
-          ],
-        },
-        {
-          test: /\.svg/,
-          type: 'asset/inline',
-        },
-        {
-          test: /\.s[ac]ss$/i,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
+            MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
               options: {
                 modules: {
                   localIdentName: '[name]_[local]-[hash:base64:5]',
                 },
+                sourceMap: true,
               },
             },
-            'sass-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
           ],
+        },
+        // Обработка глобальных SCSS (все .scss, кроме .module.scss)
+        {
+          test: /\.scss$/,
+          exclude: /\.module\.s[ac]ss$/i,
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        },
+        // Обработка CSS файлов
+        {
+          test: /\.css$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        },
+        // Инлайн для SVG файлов
+        {
+          test: /\.svg$/,
+          type: 'asset/inline',
         },
       ],
     },
+
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
