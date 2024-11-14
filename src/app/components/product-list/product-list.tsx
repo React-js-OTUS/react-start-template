@@ -2,7 +2,7 @@ import React, { FC, ReactNode, useCallback, useEffect, useRef, useState } from "
 import Styles from './products.list.module.css';
 import { OperationShop, OperationShopShortProps } from '../operation.shop.short/operation-shop-short';
 import { Product,CreateRandomProduct } from "src/homeworks/ts1/3_write";
-import useIntersectionObserver from "src/app/ hooks/useIntersectionObserver";
+import useIntersectionObserver from "src/app/hooks/useIntersectionObserver";
 import { OperationShopProps } from "../operation.shop/operation-shop";
 
 export interface IItemContent{
