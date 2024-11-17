@@ -14,7 +14,12 @@ module.exports = (_, args) => {
     devtool: 'source-map',
     context: src,
     devServer: {
-      open: true,
+      open:true,
+      // open: {
+      //   app: {
+      //     name: 'chrome',
+      //   },
+      // },
       port,
       hot: true,
       historyApiFallback: true,
@@ -61,6 +66,10 @@ module.exports = (_, args) => {
             },
             'css-loader',
           ],
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
         },
         {
           test: /\.svg/,
