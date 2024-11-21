@@ -1,0 +1,36 @@
+.product-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.product-preview {
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    width: calc(20% - 20px);
+}
+
+/* Средний экран (768px и выше) */
+@media (max-width: 1024px) {
+    .product-preview {
+        width: calc(30% - 20px);
+    }
+}
+
+/* Мобильный экран (768px и меньше) */
+@media (max-width: 768px) {
+    .product-preview {
+        width: calc(100% - 20px);
+    }
+}
+
+.btn-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
