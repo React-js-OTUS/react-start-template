@@ -61,10 +61,10 @@ export const ItemList: FC<IItemContent> = ({returnNewItem,children}) => {
             key={item.id} 
             ref={items.length === index + 1 ? lastProductElementRef : null}
           >
-            {{children} && children(item)}
+            {children && children(item)}
            <OperationShop   photo ={item.photo} price={item.price} name= {item.name} category_name= {item.category.name} description= {item.desc} caption="В корзину" />
            <button type="button" onClick={handleModalOpen}><span>Edit product</span></button>          
-           {modalVisible && (<ModalForm isVisible= {true} modalContainerId= {modalContainerId} onClose = {handleModalClose} children = {<EditProductForm   price={item.price} photos={[{id:1,url:item.photo}]} name= {item.name} category_name= {item.category.name} description= {item.desc}  />}  />)}
+           {modalVisible && (<ModalForm isVisible= {true} modalContainerId= {modalContainerId} onClose = {handleModalClose} children = {[<EditProductForm   price={item.price} photos={[{id:1,url:item.photo}]} name= {item.name} category_name= {item.category.name} description= {item.desc}  />]}  />)}
            
           </li>
         ))}

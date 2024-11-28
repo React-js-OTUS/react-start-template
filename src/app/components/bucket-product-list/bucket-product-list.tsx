@@ -23,7 +23,6 @@ export const BucketList: FC<IItemContent> = ({returnNewItem,children}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const loadMoreProducts = useCallback(async () => {
-    debugger;
     setLoading(true);
    //const newProduct = CreateRandomProduct(new Date().toDateString());
    if ((returnNewItem == null) || (returnNewItem == undefined))
@@ -37,7 +36,6 @@ export const BucketList: FC<IItemContent> = ({returnNewItem,children}) => {
   }, [next]);
 
   useEffect(() => {
-    debugger;
       loadMoreProducts();
     
   }, [loadMoreProducts]);
