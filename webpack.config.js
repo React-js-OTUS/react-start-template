@@ -77,7 +77,7 @@ module.exports = (_, args) => {
               }
           },
           generator: {
-              filename: 'images/[name]-[hash][ext]'
+              filename: '/images/[name]-[hash][ext]'
           }
         },
         {
