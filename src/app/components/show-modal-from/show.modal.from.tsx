@@ -23,7 +23,7 @@ export const ShowModal: React.FC<ShowModalProps> = ({modalContainerId }) => {
         <div>
             <input type="text"  id = "name"  onChange={e => setText(e.target.value)}/> 
             <button type="button" onClick={handleModalOpen}>open modal</button>
-            {modalVisible && (<ModalForm isVisible= {true} modalContainerId= {modalContainerId} onClose = {handleModalClose} children = {[text]}  />)}
+            {modalVisible && (<ModalForm isVisible= {true} modalContainerId= {modalContainerId} onClose = {handleModalClose} children = {text}  />)}
         </div>
       );
 }
