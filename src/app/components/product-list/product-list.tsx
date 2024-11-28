@@ -15,7 +15,7 @@ export interface IItemContent{
 }
 
 const modalContainerId = "modal_product_id"
-
+/* eslint-disable react/no-children-prop */
 export const ItemList: FC<IItemContent> = ({returnNewItem,children}) => {
   const [items, setItems] = useState([]);
   const [next, setNext] = useState(1);
