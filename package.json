@@ -79,6 +79,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.1",
     "react-i18next": "^15.1.0",
+    "react-router-dom": "^7.0.1",
     "utility-types": "^3.11.0"
   }
 }
