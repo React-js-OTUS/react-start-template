@@ -7,7 +7,7 @@ interface  ModalFormProps {
   isVisible: boolean,
   modalContainerId: string,
   onClose: () => void,
-  children: React.ReactNode | React.ReactNode[]
+  children: React.ReactNode
 }
 
 export const ModalForm: React.FC<ModalFormProps> = ({ isVisible,modalContainerId, onClose, children }) => {

@@ -6,7 +6,7 @@ import { ModalForm } from "../modal-form.module";
 export interface ShowModalProps {
     modalContainerId: string
 }
-
+/* eslint-disable react/prop-types */
 export const ShowModal: React.FC<ShowModalProps> = ({modalContainerId }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [text, setText] = useState("");
