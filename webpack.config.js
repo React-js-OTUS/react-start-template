@@ -15,6 +15,11 @@ module.exports = (_, args) => {
     context: src,
     devServer: {
       open: true,
+      open: {
+        app: {
+          name: 'google chrome',
+        },
+      },
       port,
       hot: true,
       historyApiFallback: true,
@@ -61,6 +66,10 @@ module.exports = (_, args) => {
             },
             'css-loader',
           ],
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
         },
         {
           test: /\.svg/,
