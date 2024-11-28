@@ -69,6 +69,7 @@ export const RegisterForm: FC = () =>{
                     ('email',{
                         required: true,
                         pattern: {
+                            //eslint-disable-next-line
                             value: /^[a-z][a-zA-Z0-9_.]*(\.[a-zA-Z][a-zA-Z0-9_.]*)?@[a-z][a-zA-Z-0-9]*\.[a-z]+(\.[a-z]+)?$/i,
                             message: 'Invalid email adress',
                         }
@@ -81,6 +82,7 @@ export const RegisterForm: FC = () =>{
                 ('phoneNumber',{
                     required: true,
                     pattern: {
+                        //eslint-disable-next-line
                         value: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/i,
                         message: 'Invalid phone number',
                     }
@@ -107,6 +109,7 @@ export const RegisterForm: FC = () =>{
         {...register('password',{
           required: "You must specify a password",
           pattern: {
+            //eslint-disable-next-line
             value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i,
             message: 'Password must contain at least one upper case,at least one lower case english letter,at least one digit and minimum eight in length!',
         }
@@ -120,6 +123,7 @@ export const RegisterForm: FC = () =>{
         {...register('repeatPassword',{
           required: "You must specify a password",
           pattern: {
+            //eslint-disable-next-line
             value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i,
             message: 'Password must contain at least one upper case,at least one lower case english letter,at least one digit and minimum eight in length!',
         }

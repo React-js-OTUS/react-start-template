@@ -8,7 +8,6 @@ export default function useIntersectionObserver<T extends HTMLElement>(
 
   const ref = useCallback(
     (node: T) => {
-        debugger;
         if (deps.every((x) => x === true)) return; 
       //if (deps.every(Boolean)) {
         if (observer.current) observer.current.disconnect();

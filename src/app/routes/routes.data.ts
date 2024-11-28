@@ -1,4 +1,4 @@
-import {bucketList} from '../components/bucket-product-list/bucket-product-list'
+import {BucketList} from '../components/bucket-product-list/bucket-product-list'
 import {ItemList} from '../components/product-list/product-list'
 import Profile from '../components/profile/HookForm'
 export const routes = [
@@ -12,7 +12,7 @@ export const routes = [
 	},	
 	{
 		path: '/bucket',
-		component: bucketList
+		component: BucketList
 	}
 	 
 ]

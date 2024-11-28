@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import {NewProductForm} from "../app/components/createNewProduct/NewProduct";
-import Styles from "../app/components/registration/register.module.css";
+import Styles from "../app/components/registration_login/register.module.css";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

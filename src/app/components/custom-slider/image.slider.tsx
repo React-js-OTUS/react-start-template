@@ -12,7 +12,6 @@ interface ImageProps{
 }
 
 export const ImageSlider: React.FC<ImageProps> = ({images}) => {
-  debugger;
   const [selectedId, setSelectdId] = useState<number>(0);
   const prevImage = () => {
     setSelectdId((prev) => (prev <= 0? images.length-1 : prev - 1));

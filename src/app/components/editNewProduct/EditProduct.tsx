@@ -52,9 +52,8 @@ export const EditProductForm: FC<IProductProps> = ({ price,photos, name, categor
   
     const  filesWatch = watch("images");
     const onSubmit = (data : IProductData) =>{
-        let [price , images,name,category_name,description ] = getValues(["price", "images","name","category_name","description"]);
-        price =  parseInt(params.id);
-        console.log(price , images,name,category_name,description)  ;
+        const [price , images,name,category_name,description ] = getValues(["price", "images","name","category_name","description"]);
+       
     }
 
     useEffect(() => {

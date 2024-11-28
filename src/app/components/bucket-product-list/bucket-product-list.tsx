@@ -16,7 +16,7 @@ export interface IItemContent{
 
 const modalContainerId = "modal_product_id"
 
-export const bucketList: FC<IItemContent> = ({returnNewItem,children}) => {
+export const BucketList: FC<IItemContent> = ({returnNewItem,children}) => {
   const [items, setItems] = useState([]);
   const [next, setNext] = useState(1);
   const [loading, setLoading] = useState(false);

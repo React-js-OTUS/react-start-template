@@ -24,24 +24,19 @@ function App() {
    const [lang, setLang] = useState<Lang>(langFromC.langName ) ;
    const [prod, setProd] = useState<Product>() ;
    const { t } = useTranslation('translation', { lng: lang });
-   let ps: Product[] ;
-   ps = [CreateRandomProduct(new Date().toDateString())];
 
-   const getThemeName = (event:React.MouseEvent<HTMLButtonElement>) => {
-    let v = event.target as HTMLButtonElement;   
-    console.log(v.name);
-    setTheme(v.name as Theme);
-  };
-  const getLangName = (event:React.MouseEvent<HTMLButtonElement>) => {
-    let v = event.target as HTMLButtonElement;   
-    console.log(v.name);
-    setLang(v.name as Lang);
-  };
+  //  const getThemeName = (event:React.MouseEvent<HTMLButtonElement>) => {
+  //   let v = event.target as HTMLButtonElement;   
+  //   console.log(v.name);
+  //   setTheme(v.name as Theme);
+  // };
+  // const getLangName = (event:React.MouseEvent<HTMLButtonElement>) => {
+  //   let v = event.target as HTMLButtonElement;   
+  //   console.log(v.name);
+  //   setLang(v.name as Lang);
+  // };
 
-  const addNewItem =(date_dt: string) => {
-    let newprod =CreateRandomProduct(date_dt);
-    setProd(newprod);
-    return CreateRandomProduct(date_dt)}
+
 
   return (
     <><Router/></>
