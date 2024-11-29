@@ -17,7 +17,7 @@ export const OperationShop: React.FC<OperationShopShortProps> = ({price,photo, n
     return (
         <div className={Styles.wrap}>
             <div className= {Styles.product}>
-                <img src={require("app/assets/" + photo)}  />
+                <img src={require("src/images/" + photo)}  />
             </div>
              <label htmlFor="price">Сумма</label>
              <input type="number" id="price"  min="10" max="10000000000" value={price} />
