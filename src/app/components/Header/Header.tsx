@@ -1,15 +1,15 @@
 import { NavLink } from 'react-router-dom'
 import Style from './Header.module.css'
 import React, { ReactElement, ReactNode } from 'react'
-import { LogoProps } from "../logo.module";
+import { LogoProps,Logo } from "../logo.module";
 import cn from 'clsx';
 
 export interface  HeaderProps {
-    headerText: ReactNode;
-    logo: ReactElement<LogoProps>;
+    headerText?: ReactNode;
+    logo?: ReactElement<LogoProps>;
 }
 
-const Header = () => {
+const Header: React.FC= () => {
 	return (
 		<><div className={Style.header}>
 		<span>
@@ -28,11 +28,11 @@ const Header = () => {
 		
 				Bucket
 			</NavLink>
-		</span>      
+		</span>    
+		<Logo/>  
 	  </div>
 	 
 		</>
 	)
-}
-
+} 
 export default Header
