@@ -11,7 +11,7 @@ export const Logo: React.FC<LogoProps> = ({image }) => {
 
     return (
         <div className={Styles.logo} >
-           <img src={require('../assets/icons8-logo.svg')}  />
+           <img src={require('src/images/icons8-logo.svg')}  />
         </div>
       );
 }
