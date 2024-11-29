@@ -25,6 +25,9 @@ code {
     animation: 500ms ease-in-out 0s normal none 1 running Header-module_fadeInDown-fAcZf;
     padding-top: 0px;
     padding-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 	/* width: 100%;
     position: sticky;
     top: 0;
@@ -50,6 +53,19 @@ span {
 .Header-module_nav-ogS6S{
 	margin: 5px 15px;
 }
+.logo-module_logo-vN8qT {
+    border-radius: 50%;
+    border: 2px solid rgb(246, 237, 237);
+    padding: 5px;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+
+  .logo-module_logo-vN8qT img {
+    width: 100%;
+ }
 input {
   margin: 10px 10px 10px 10px;
 }
