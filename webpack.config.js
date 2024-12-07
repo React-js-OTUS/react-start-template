@@ -19,6 +19,9 @@ module.exports = (_, args) => {
       hot: true,
       historyApiFallback: true,
       host,
+			server: {
+				type: "http",
+			},
     },
     resolve: {
       modules: [src, 'node_modules'],
@@ -28,11 +31,11 @@ module.exports = (_, args) => {
       },
     },
 
-    entry: './index.tsx',
+    entry: './app.tsx',
     output: {
       path: dist,
       publicPath:
-        args.mode === 'development' ? `http://${host}:${port}/` : undefined /* <- прописать данные своего github */,
+        args.mode === 'development' ? `http://${host}:${port}/` : 'https://kshatria.github.io/react-start-template/',
       filename: `js/[name].js`,
       chunkFilename: `js/[name].js`,
     },
@@ -87,8 +90,8 @@ module.exports = (_, args) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './index.html',
-        favicon: './favicon.svg',
+        template: './app.html',
+        favicon: '../static/favicon.svg',
       }),
       new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({

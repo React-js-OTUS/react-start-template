@@ -2,10 +2,10 @@
   "name": "react-start-template",
   "version": "1.0.0",
   "description": "Start repo with required configuration",
-  "main": "src/index.tsx",
-  "author": "Igor <spirit-drive@yandex.ru>",
+  "main": "src/app.tsx",
+  "author": "Budylin Konstantin <hts7808@gmail.com>",
   "scripts": {
-    "start": "webpack serve --mode development",
+    "start": "webpack serve --mode development --open",
     "build": "webpack --mode production",
     "test": "jest src",
     "lint": "eslint src --fix",
