@@ -8,7 +8,8 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Текст писать тут
+          Всем привет! Меня зовут Черепанов Егор, я front-end разработчик. Я занимаюсь разработкой интерфейсов и дизайна веб-приложений.<br />
+          Я разрабатываю интерфейсы с помощью React и Jquery.
         </p>
       </header>
     </div>
