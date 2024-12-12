@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import Style from './Header.module.css'
 import React, { ReactElement, ReactNode } from 'react'
 import { LogoProps, Logo } from '../logo.module'
@@ -10,6 +10,7 @@ export interface HeaderProps {
 }
 
 const Header: React.FC = () => {
+	
     return (
         <>
             <div className={Style.header}>

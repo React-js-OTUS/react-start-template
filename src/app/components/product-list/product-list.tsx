@@ -18,6 +18,11 @@ import { ModalForm } from '../modal-form.module'
 import { EditProductForm } from '../editNewProduct/EditProduct'
 import { Image } from '../custom-slider/image.slider'
 import { BucketButton } from '../bucket-button/bucket-button'
+import { useDispatch, useSelector } from 'react-redux';
+import { addToBucket,ProductBucket } from '../../store/bucket';
+import { ProductType } from 'src/app/services/Types'
+import { authSelectors } from 'src/app/store/auth'
+import { useIsAdmin } from 'src/app/hooks/isAdmin'
 
 export interface IItemContent {
     returnNewItem?: (arg: string) => any
@@ -27,11 +32,19 @@ export interface IItemContent {
 const modalContainerId = 'modal_product_id'
 /* eslint-disable react/no-children-prop */
 export const ItemList: FC<IItemContent> = ({ returnNewItem, children }) => {
+    const dispatch = useDispatch();
     const [items, setItems] = useState([])
     const [next, setNext] = useState(1)
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
+    const isAdmin =  useIsAdmin();
+   
 
+
+    const handleAddToCart = (payload: ProductBucket, e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault;
+      dispatch(addToBucket(payload))
+    }
     //const handleClose = () => { setModalVisible(false)};
     const handleModalOpen = () => {
         setModalVisible(true)
@@ -82,10 +95,14 @@ export const ItemList: FC<IItemContent> = ({ returnNewItem, children }) => {
                             name={item.name}
                             category_name={item.category.name}
                             description={item.desc}
-                            caption="В корзину"
+                            
                         />
-                        <button type="button" onClick={handleModalOpen}>
+                        {isAdmin && <button type="button" onClick={handleModalOpen}>
                             <span>Edit product</span>
+                        </button>}
+                        <button type="button" onClick={(e) => handleAddToCart({id:item.id, price:item.price ,photo: item.photo, name: item.name,
+                        category_name: item.category.name,description: item.desc, caption : "dfjgg"},e)}>
+                            <span>Add to cart</span>
                         </button>
                         {modalVisible && (
                             <ModalForm

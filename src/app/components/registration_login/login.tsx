@@ -2,13 +2,15 @@ import * as React from 'react'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Styles from './register.module.css'
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../store/auth';
 
 export interface ILoginData {
     password: string
     email: string
 }
 
-export const RegisterForm: FC = () => {
+export const LoginForm: FC = () => {
     const { register, handleSubmit, formState, watch } = useForm<ILoginData>({
         defaultValues: {
             password: '',
@@ -16,8 +18,11 @@ export const RegisterForm: FC = () => {
         },
         mode: 'onChange',
     })
+    const dispatch = useDispatch();
     const onSubmit = (data: ILoginData) => {
-        console.log(data)
+        var email = data.email;
+        var password = data.password;
+        dispatch(loginUser({email,password}));
     }
 
     return (

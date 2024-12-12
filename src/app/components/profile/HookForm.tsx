@@ -2,23 +2,31 @@ import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { s } from './HookForm.module.css'
 import { measureMemory } from 'vm'
+import { useSelector } from 'react-redux';
+import { authSelectors } from '../../store/auth';
 
 export interface IForm {
-    email: string
-    message: string
+    email?: string
+    lastName?: string
+    firstName?: string
+
 }
 
 export const HookForm: FC = () => {
+    const auth = useSelector(authSelectors.get);
+    const user =  auth.user;
     const { register, handleSubmit, formState } = useForm<IForm>({
         defaultValues: {
-            email: '',
-            message: '',
+            email: user?.email ?? '',
+            lastName:  user?.lastName ?? '',
+            firstName:  user?.firstName ?? ''
         },
         mode: 'onChange',
     })
 
     const emailError = formState.errors.email
-    const messageError = formState.errors.message
+    const lastNameError = formState.errors.lastName
+    const firstNameError = formState.errors.firstName
 
     const onSubmit = (data: IForm) => {
         console.log(data)
@@ -39,16 +47,27 @@ export const HookForm: FC = () => {
             />
             {emailError && <p style={{ color: 'red' }}>{emailError.message}</p>}
             <textarea
-                placeholder="message"
-                {...register('message', {
-                    required: 'Message is required',
+                placeholder="lastName"
+                {...register('lastName', {
+                    required: 'Lastname is required',
                     maxLength: 15,
                 })}
             ></textarea>
-            {messageError && (
-                <p style={{ color: 'red' }}>{messageError.message}</p>
+            {lastNameError && (
+                <p style={{ color: 'red' }}>{lastNameError.message}</p>
             )}
-            <button type="submit">Send</button>
+            <textarea
+                placeholder="firstName"
+                {...register('firstName', {
+                    required: 'Firstname is required',
+                    maxLength: 15,
+                })}
+            ></textarea>
+            {firstNameError && (
+                <p style={{ color: 'red' }}>{firstNameError.message}</p>
+            )}
+            
+            <button type="submit">Edit</button>
         </form>
     )
 }
