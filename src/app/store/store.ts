@@ -1,10 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {  AnyAction,configureStore, ThunkAction } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { count } from './count';
 import { token } from './token';
 import { auth } from './auth';
 import { bucketList } from './bucket';
 import { sagas } from './sagas';
+//import { register, registerSlice } from "./register"
+import { serverApi } from "../features/api/ServerApi"
+import { setupListeners } from '@reduxjs/toolkit/query';
+import {thunk,withExtraArgument} from 'redux-thunk';
+import {registerThunk} from "./registerThunk"
 
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
@@ -12,12 +17,17 @@ export const store = configureStore({
     count,
     token,
     auth,
-    bucketList
+    bucketList,
+    registerThunk,
+    [serverApi.reducerPath]: serverApi.reducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk:{extraArgument:{url: 'http://19429ba06ff2.vps.myjino.ru/api/',
+    version: '1',}}}).concat(sagaMiddleware).concat(serverApi.middleware),
 });
 
 sagaMiddleware.run(sagas);
-
+setupListeners(store.dispatch);
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type ExtraParams = { url: string; version: string };
+//export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, ExtraParams, AnyAction>;

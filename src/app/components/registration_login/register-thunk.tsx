@@ -27,7 +27,7 @@ export enum GenderEnum {
     notDefined = 'not defined',
 }
 
-export const RegisterForm: FC = () => {
+export const RegisterThunkForm: FC = () => {
     const { register, handleSubmit, formState, watch } = useForm<IRegisterData>(
         {
             defaultValues: {
@@ -46,11 +46,13 @@ export const RegisterForm: FC = () => {
     const [ errorMessage, setErrorMessage ] = useState<string>(null)
     const navigate = useNavigate();
     const dispatch: AppDispatch = useDispatch();
+    const registerResp = useSelector(registerThunkSelectors.get)
 
     const onSubmit = (data: IRegisterData) => {
         console.log(data)
         let body:SignUpBody  = { email: data.email, password: data.password,  commandId : uuidv4()}
-        registerUser(body);
+       // registerUser(body);
+      dispatch(fetchRegisterThunk(body));
         
     }
     const [passwordsNotMatchMessage, setPasswordsNotMatchMessage] =
@@ -78,7 +80,20 @@ export const RegisterForm: FC = () => {
     }
     }, [isLoading, error,isError,isSuccess,data])
 
-   
+    useEffect(() => {
+        debugger;
+       console.log(registerResp);
+       if (registerResp.resp)
+       {
+         let r: ErrorItem[] = registerResp.resp
+         let e =  r.reduce((s,b)=> (s + "," + b.message),"") 
+         setErrorMessage(e)
+       }
+       else if (registerResp.data)
+       {
+        navigate("/login")
+       }
+    }, [registerResp])
 
 
     return (

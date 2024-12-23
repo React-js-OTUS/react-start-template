@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import Styles from './register.module.css'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../store/auth';
+import { useNavigate } from 'react-router-dom';
 
 export interface ILoginData {
     password: string
@@ -19,12 +20,25 @@ export const LoginForm: FC = () => {
         mode: 'onChange',
     })
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const onSubmit = (data: ILoginData) => {
         var email = data.email;
         var password = data.password;
         dispatch(loginUser({email,password}));
     }
+    const onRegister = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        debugger;
+        e.preventDefault()
+        navigate("/register")
 
+    }
+    const onRegisterThunk = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        debugger;
+        e.preventDefault()
+        navigate("/registerthunk")
+
+    }
+    
     return (
         <section className={Styles.container}>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -62,6 +76,12 @@ export const LoginForm: FC = () => {
                 )}
                 <button type="submit" onClick={handleSubmit(onSubmit)}>
                     Login
+                </button>
+                <button onClick={(e) => onRegister(e)}>
+                    Rgister
+                </button>
+                <button onClick={(e) => onRegisterThunk(e)}>
+                    RgisterThunk
                 </button>
             </form>
         </section>

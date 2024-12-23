@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { FC, MouseEventHandler, useEffect, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { ImageSlider, Image as photo } from '../custom-slider/image.slider'
+import { ImageSlider, Image as photo } from '../Custom-slider/image.slider'
 import Styles from '../registration_login/register.module.css'
 import useFilePreview from '../../hooks/useFilePreview'
 import { watchFile } from 'fs'

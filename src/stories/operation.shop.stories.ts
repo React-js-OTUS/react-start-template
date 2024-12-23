@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react'
 
-import { OperationShop } from '../app/components/operation.shop/operation-shop'
+import { OperationShop } from '../app/components/Operation.shop/operation-shop'
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof OperationShop> = {

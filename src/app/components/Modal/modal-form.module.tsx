@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { MouseEventHandler } from 'react'
 import Styles from './modal-form.module.css'
-import Portal, { createContainer } from './portal/portal'
+import Portal, { createContainer } from '../Portal/portal'
 
 interface ModalFormProps {
     isVisible: boolean

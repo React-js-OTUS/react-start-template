@@ -10,14 +10,14 @@ import Styles from './products.list.module.css'
 import {
     OperationShop,
     OperationShopShortProps,
-} from '../operation.shop.short/operation-shop-short'
+} from '../Operation.shop.short/operation-shop-short'
 import { Product, CreateRandomProduct } from 'src/homeworks/ts1/3_write'
 import useIntersectionObserver from 'src/app/hooks/useIntersectionObserver'
-import { OperationShopProps } from '../operation.shop/operation-shop'
-import { ModalForm } from '../modal-form.module'
-import { EditProductForm } from '../editNewProduct/EditProduct'
-import { Image } from '../custom-slider/image.slider'
-import { BucketButton } from '../bucket-button/bucket-button'
+import { OperationShopProps } from '../Operation.shop/operation-shop'
+import { ModalForm } from '../Modal/modal-form.module'
+import { EditProductForm } from '../EditNewProduct/EditProduct'
+import { Image } from '../Custom-slider/image.slider'
+import { BucketButton } from '../Bucket-button/bucket-button'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToBucket,ProductBucket } from '../../store/bucket';
 import { ProductType } from 'src/app/services/Types'

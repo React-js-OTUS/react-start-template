@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { HookForm } from '../app/components/profile/HookForm'
+import { HookForm } from '../app/components/Profile/HookForm'
 import { styles } from '../app/components/profile/HookForm.module.css'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export

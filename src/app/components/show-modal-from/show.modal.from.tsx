@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { MouseEventHandler, ReactElement, ReactNode } from 'react'
 import Styles from '../header.module.css'
-import { ModalForm } from '../modal-form.module'
+import { ModalForm } from '../Modal/modal-form.module'
 
 export interface ShowModalProps {
     modalContainerId: string

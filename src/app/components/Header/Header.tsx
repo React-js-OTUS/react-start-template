@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import Style from './Header.module.css'
 import React, { ReactElement, ReactNode } from 'react'
-import { LogoProps, Logo } from '../logo.module'
+import { LogoProps, Logo } from '../Logo/logo.module'
 import cn from 'clsx'
 
 export interface HeaderProps {
