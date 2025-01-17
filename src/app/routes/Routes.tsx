@@ -17,9 +17,10 @@ import Profile from '../components/Profile/HookForm'
 import { RegisterForm } from '../components/registration_login/register'
 import { RegisterThunkForm } from '../components/registration_login/register-thunk'
 import { LoginForm } from '../components/registration_login/login'
+import ProductForm from '../components/Product/product-from'
 
 const Router = () => {
-	const token = useSelector(tokenSelectors.get);
+	const token = localStorage.getItem("token");
 
     return (
         <BrowserRouter>
@@ -35,7 +36,7 @@ const Router = () => {
 					<Profile/>
 				</ProtectedRoute>
 			} />
-			
+			<Route path= '/product' element={<ProductForm/>} />
 
 			</Route> 
 

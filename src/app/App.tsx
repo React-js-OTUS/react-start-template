@@ -13,7 +13,7 @@ import { use } from 'storybook-static/984.cbbc5609.iframe.bundle';
 import Router from './routes/Routes';
 
 function App() {
-    localStorage.clear();
+    //localStorage.clear();
     
     return   (
    <Provider store={store}>

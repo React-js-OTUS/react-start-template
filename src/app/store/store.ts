@@ -10,6 +10,8 @@ import { serverApi } from "../features/api/ServerApi"
 import { setupListeners } from '@reduxjs/toolkit/query';
 import {thunk,withExtraArgument} from 'redux-thunk';
 import {registerThunk} from "./registerThunk"
+import {profileThunk} from "./profileThunk"
+import { rtkQueryErrorLogger } from './middleware/errorMiddleware';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
@@ -19,10 +21,11 @@ export const store = configureStore({
     auth,
     bucketList,
     registerThunk,
+    profileThunk,
     [serverApi.reducerPath]: serverApi.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk:{extraArgument:{url: 'http://19429ba06ff2.vps.myjino.ru/api/',
-    version: '1',}}}).concat(sagaMiddleware).concat(serverApi.middleware),
+    version: '1',}}}).concat(sagaMiddleware).concat(serverApi.middleware).concat(rtkQueryErrorLogger),
 });
 
 sagaMiddleware.run(sagas);

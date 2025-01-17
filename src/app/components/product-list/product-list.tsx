@@ -23,6 +23,9 @@ import { addToBucket,ProductBucket } from '../../store/bucket';
 import { ProductType } from 'src/app/services/Types'
 import { authSelectors } from 'src/app/store/auth'
 import { useIsAdmin } from 'src/app/hooks/isAdmin'
+import { useGetProductsQuery, useGetProfileQuery} from 'src/app/features/api/ServerApi'
+import { ProductFilterQuery } from 'src/app/types/RegisterTypes'
+import { data } from 'react-router-dom'
 
 export interface IItemContent {
     returnNewItem?: (arg: string) => any
@@ -38,13 +41,22 @@ export const ItemList: FC<IItemContent> = ({ returnNewItem, children }) => {
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const isAdmin =  useIsAdmin();
-   
+    const [page, setPage] = useState<ProductFilterQuery>({pageSize: 6, pageNumber: 1, type: 'ASC' , field: 'id'})
+    const {data: dataPage, error, isLoading, isFetching} = useGetProductsQuery(page);
+    const [hasNextPage, setHasNextPage] = useState(true)
 
 
+    console.log("data: ")
+    console.log( dataPage)
+    
+      
     const handleAddToCart = (payload: ProductBucket, e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.preventDefault;
       dispatch(addToBucket(payload))
     }
+    const handleAddNewProduct = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault;
+      }
     //const handleClose = () => { setModalVisible(false)};
     const handleModalOpen = () => {
         setModalVisible(true)
@@ -52,34 +64,49 @@ export const ItemList: FC<IItemContent> = ({ returnNewItem, children }) => {
     const handleModalClose = () => {
         setModalVisible(false)
     }
-    //const observer = useRef<IntersectionObserver | null>(null);
 
-    const loadMoreProducts = useCallback(async () => {
-        setLoading(true)
-        //const newProduct = CreateRandomProduct(new Date().toDateString());
-        if (returnNewItem == null || returnNewItem == undefined) {
-            returnNewItem = (date_dt: string) => {
-                return CreateRandomProduct(date_dt)
+   useEffect(() => {
+    if (dataPage){
+        if ( "data" in dataPage) {
+            console.log("data contains: ")
+            console.log(dataPage["data"])
+            setItems(products => [...products, ...dataPage["data"]])
+            if (items.length < dataPage["pagination"]["total"])
+            {
+                setHasNextPage(true)
             }
         }
-        const newItem = returnNewItem(new Date().toDateString())
-        setItems((prevItem) => [...prevItem, newItem])
-        setLoading(false)
-    }, [next])
+    }
+    }, [dataPage])
+    //const observer = useRef<IntersectionObserver | null>(null);
 
-    useEffect(() => {
-        loadMoreProducts()
-    }, [loadMoreProducts])
+    // const loadMoreProducts = useCallback(async () => {
+    //     setLoading(true)
+    //     //const newProduct = CreateRandomProduct(new Date().toDateString());
+    //     if (returnNewItem == null || returnNewItem == undefined) {
+    //         returnNewItem = (date_dt: string) => {
+    //             return CreateRandomProduct(date_dt)
+    //         }
+    //     }
+    //     const newItem = returnNewItem(new Date().toDateString())
+    //     setItems((prevItem) => [...prevItem, newItem])
+    //     setLoading(false)
+    // }, [next])
+
+    // useEffect(() => {
+    //     loadMoreProducts()
+    // }, [loadMoreProducts])
 
     const lastProductElementRef = useIntersectionObserver<HTMLLIElement>(
-        () => setNext((prev) => prev + 1),
-        [loading]
-    )
+        () => setPage((prev) => ({pageSize: page.pageSize,pageNumber :prev.pageNumber + 1, type: page.type , field: page.field} )),
+        [hasNextPage,!isLoading,!isFetching]
+    )  
 
     return (
         <div>
+             
             <ul>
-                {items.map((item, index) => (
+                {items && items.map((item, index) => (
                     <li
                         key={item.id}
                         ref={
@@ -90,10 +117,10 @@ export const ItemList: FC<IItemContent> = ({ returnNewItem, children }) => {
                     >
                         {children && children(item)}
                         <OperationShop
-                            photo={item.photo}
+                            photo={item.photo ?? null }
                             price={item.price}
-                            name={item.name}
-                            category_name={item.category.name}
+                            name={item.name ?? ""}
+                            category_name={item.category.name ?? ""}
                             description={item.desc}
                             
                         />

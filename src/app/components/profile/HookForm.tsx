@@ -15,11 +15,12 @@ export interface IForm {
 export const HookForm: FC = () => {
     const auth = useSelector(authSelectors.get);
     const user =  auth.user;
+    let r =  localStorage.getItem("user");
     const { register, handleSubmit, formState } = useForm<IForm>({
         defaultValues: {
             email: user?.email ?? '',
-            lastName:  user?.lastName ?? '',
-            firstName:  user?.firstName ?? ''
+            lastName:  user?.name ?? '',
+            firstName:  user?.name ?? ''
         },
         mode: 'onChange',
     })

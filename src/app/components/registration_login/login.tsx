@@ -2,8 +2,8 @@ import * as React from 'react'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Styles from './register.module.css'
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../store/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelectors, loginUser } from '../../store/auth';
 import { useNavigate } from 'react-router-dom';
 
 export interface ILoginData {
@@ -19,6 +19,7 @@ export const LoginForm: FC = () => {
         },
         mode: 'onChange',
     })
+    const auth = useSelector(authSelectors.get);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const onSubmit = (data: ILoginData) => {
@@ -27,13 +28,11 @@ export const LoginForm: FC = () => {
         dispatch(loginUser({email,password}));
     }
     const onRegister = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        debugger;
         e.preventDefault()
         navigate("/register")
 
     }
     const onRegisterThunk = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        debugger;
         e.preventDefault()
         navigate("/registerthunk")
 
@@ -63,16 +62,19 @@ export const LoginForm: FC = () => {
                         type="password"
                         {...register('password', {
                             required: 'You must specify a password',
-                            pattern: {
-                                value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i,
-                                message:
-                                    'Password must contain at least one upper case,at least one lower case english letter,at least one digit and minimum eight in length!',
-                            },
+                            // pattern: {
+                            //     value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i,
+                            //     message:
+                            //         'Password must contain at least one upper case,at least one lower case english letter,at least one digit and minimum eight in length!',
+                            // },
                         })}
                     />
                 </div>
                 {formState.errors.password && (
                     <p>{formState.errors.password.message}</p>
+                )}
+                {auth.error && (
+                    <p>{auth.error}</p>
                 )}
                 <button type="submit" onClick={handleSubmit(onSubmit)}>
                     Login

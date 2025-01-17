@@ -64,7 +64,6 @@ export const RegisterForm: FC = () => {
     }, watchPasswordsMatch)
 
     useEffect(() => {
-        debugger;
        console.log(error);
        if (error) {
         if ('status' in error) {

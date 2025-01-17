@@ -1,17 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AppState } from './store';
+import { AppDispatch, AppState } from './store';
+import { AuthResult } from '../types/RegisterTypes';
+import { ProfileGetResponse } from '../types/Profile';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProfileThunk, profileThunkSelectors } from './profileThunk';
+import { stat } from 'fs';
+import { StringDecoder } from 'string_decoder';
 
-export type User = {
-    id: number,
-    email: string,
-    firstName: string,
-    lastName: string,    
-    role : string
+// export type User = {
+//     id: number,
+//     email: string,
+//     firstName: string,
+//     lastName: string,    
+//     role : string
     
-}
+// }
 // Define the initial state for the auth slice
 const initialState = {
-  user: null as User, // Currently logged in user
+  user: null as ProfileGetResponse,
+  token: null as string, // Currently logged in user
   error: null as string, // Any error that occurred during login
   status: 'idle', // Status of the login process (idle, pending, complete, failed)
 };
@@ -27,16 +34,26 @@ const authSlice = createSlice({
       state.status = 'pending';
     },
     // Update user data and set status to 'complete' on successful login
-    loginUserSuccess(state, action) {
-      state.user = action.payload;
+    loginUserSuccess(state, action) {     
+      const profile = action.payload['response']['profile'];
+      const token = action.payload['response']['token'];
+      state.token = token;      
+      state.user = profile
       state.error = null;
-      state.status = 'complete';
+      state.status = 'complete';   
+      localStorage.setItem('token', state.token || '');   
+      localStorage.setItem('user', JSON.stringify(state.user) );   
+
+
     },
     // Reset user data, set error message, and status to 'failed' on login failure
     loginUserFailure(state, action) {
-      state.user = null;
+      state.token = null;
       state.error = action.payload;
+      state.user= null;
       state.status = 'failed';
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },
   },
 });

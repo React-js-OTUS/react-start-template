@@ -58,8 +58,7 @@ export const BucketList: FC<IItemContent> = ({ returnNewItem, children }) => {
       let res_array: IProductCart[] = []
       if (productCart.products){
       productCart.products.forEach(element => { 
-      let i = countItem.counts.find(c => c.id == element.id)
-      debugger;
+      let i = countItem.counts.find(c => c.id == parseInt(element.id))
       if (i == undefined)
       {
         let payload: ProductBucket = element;
@@ -67,7 +66,7 @@ export const BucketList: FC<IItemContent> = ({ returnNewItem, children }) => {
       }
       if (!(i == undefined))
       {
-        res_array.push({id: element.id, price:element.price, photo:element.photo,name: element.name, category_name: element.category_name,
+        res_array.push({id: parseInt(element.id), price:element.price, photo:element.photo,name: element.name, category_name: element.category_name,
         description: element.description, caption:element.caption, count:i.count  } )
       }
       });

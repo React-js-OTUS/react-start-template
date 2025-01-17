@@ -5,8 +5,11 @@ const tokenSlice = createSlice({
   name: 'token',
   initialState: localStorage.getItem('token'),
   reducers: {
-    gen: () => Math.random().toString(16),
-    same: (state) => state,
+   //gen: () => Math.random().toString(16),
+   setToken(state, action) {
+    
+  },
+   same: (state) => state,
   },
 });
 export const tokenActions = tokenSlice.actions;

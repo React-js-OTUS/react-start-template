@@ -25,7 +25,6 @@ const countSlice = createSlice({
       }
     },
     decrease: (state, action) =>  { 
-      debugger;
       var index = state.counts.indexOf(state.counts.find(c => c.id == action.payload.id));
       if (index > -1){
         if ( state.counts[index].count > 0) 

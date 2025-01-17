@@ -5,7 +5,7 @@ import { compareAsc, format } from 'date-fns'
 
 export interface OperationShopShortProps {
     price: number
-    photo: string
+    photo?: string
     name: string
     category_name: string
     description: string
@@ -23,7 +23,8 @@ export const OperationShop: React.FC<OperationShopShortProps> = ({
     return (
         <div className={Styles.wrap}>
             <div className={Styles.product}>
-                <img src={require('src/images/' + photo)} />
+                {/* <img src={require('src/images/' + photo)} /> */}
+                 {photo && <img src={photo} />}
             </div>
             <label htmlFor="price">Сумма</label>
             <input
@@ -38,11 +39,11 @@ export const OperationShop: React.FC<OperationShopShortProps> = ({
             <label htmlFor="category">Категория</label>
             <input type="text" id="category" value={category_name} />
             <label htmlFor="descr">Описание</label>
-            <textarea id="descr">
+            {/* <textarea id="descr">
                 {description.length > 250
                     ? `${description.substring(0, 250)}...`
                     : description}
-            </textarea>
+            </textarea> */}
             {caption && (
                 <button type="button">
                     <span>{caption}</span>

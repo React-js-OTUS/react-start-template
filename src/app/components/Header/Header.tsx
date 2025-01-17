@@ -39,6 +39,14 @@ const Header: React.FC = () => {
                     >
                         Bucket
                     </NavLink>
+                    <NavLink
+                        to="/product"
+                        className={({ isActive }) =>
+                            isActive ? cn(Style.active, Style.nav) : Style.nav
+                        }
+                    >
+                        Add product
+                    </NavLink>
                 </span>
                 <Logo />
             </div>

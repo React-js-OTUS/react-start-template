@@ -4,7 +4,7 @@ import { count, countSelectors } from './count';
 import { put } from 'redux-saga/effects';
 
 export type ProductBucket = {
-    id: number
+    id: string
     price: number
     photo: string
     name: string
@@ -25,7 +25,6 @@ const bucketListSlice = createSlice({
   reducers: {
     
     deleteFromBucket(state, action) {
-        debugger;
         const index = state.products.indexOf(state.products.find(c => c.id == action.payload.id));
         if (index > -1) { 
             state.products.splice(index, 1); 

@@ -66,7 +66,6 @@ export const RegisterThunkForm: FC = () => {
     }, watchPasswordsMatch)
 
     useEffect(() => {
-        debugger;
        console.log(error);
        if (error) {
         if ('status' in error) {
@@ -81,7 +80,6 @@ export const RegisterThunkForm: FC = () => {
     }, [isLoading, error,isError,isSuccess,data])
 
     useEffect(() => {
-        debugger;
        console.log(registerResp);
        if (registerResp.resp)
        {
