@@ -1,9 +1,8 @@
 import React from 'react';
-import { Modal } from 'src/shared/modal';
-import { Header } from 'src/shared/header/ui/Header';
-import { OperationDisplay } from 'src/shared/operationDisplay/ui/OperationDisplay';
+import { Modal } from '../../modal';
+import { Header } from '../../header/ui/Header';
 import cls from './layout.module.scss';
-import { FullDisplay } from 'src/shared/fullDisplay/ui/FullDisplay';
+import { FullDisplay } from '../../fullDisplay/ui/FullDisplay';
 
 export const Layout = () => {
   return (

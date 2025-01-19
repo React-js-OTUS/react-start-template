@@ -25,6 +25,7 @@ export const FullDisplay: FC<FullDisplayProps> = ({
       <p>Sum: {sumOperations}</p>
       <p>category: {categoryName}</p>
       <p className={cls.description} title={description}>{`description: ${description}`}</p>
+      <button>Редактировать</button>
     </div>
   );
 };

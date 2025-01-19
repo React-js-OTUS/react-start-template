@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import cls from './operationDisplay.scss';
+import cls from './operationDisplay.module.scss';
 import cn from 'clsx';
 
 type OperationDisplayProps = {

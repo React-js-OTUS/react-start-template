@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import cls from './header.module.scss';
 import cn from 'clsx';
-import { Logo } from 'src/shared/logo';
+import { Logo } from '../../logo';
 
 type HeaderProps = {
   className?: string;
