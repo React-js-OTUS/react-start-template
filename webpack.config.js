@@ -84,10 +84,6 @@ module.exports = (_, args) => {
           test: /\.css$/,
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
-        {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-        },
         // Инлайн для SVG файлов
         {
           test: /\.svg$/,

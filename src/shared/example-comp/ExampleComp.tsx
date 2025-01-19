@@ -2,6 +2,7 @@ import React from 'react';
 import './example-comp.scss';
 import { useThemeContext } from '../context/theme-context/theme-context';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 export const ExampleCpomp = () => {
   const { theme, toggleTheme } = useThemeContext();
@@ -11,13 +12,11 @@ export const ExampleCpomp = () => {
     light: theme === 'light',
   });
 
+  const { t } = useTranslation();
+
   return (
     <div className={classNames(containerClass)}>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias impedit delectus esse voluptatibus
-        perspiciatis architecto atque, vel ullam. Dolorem ea voluptates magnam qui non tempore nulla, a obcaecati?
-        Quibusdam, deserunt.
-      </p>
+      <p>{t('lorem')}</p>
       <button onClick={toggleTheme}>сменить тему</button>
     </div>
   );
