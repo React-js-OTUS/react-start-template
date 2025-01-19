@@ -6,7 +6,7 @@ const meta: Meta<typeof Modal> = {
   component: Modal,
   tags: ['autodocs'],
   argTypes: {
-    visible: { control: 'boolean' },
+    isOpen: { control: 'boolean' },
     children: { control: 'text' },
   },
 };
@@ -15,14 +15,14 @@ export default meta;
 
 export const VisibleModal = {
   args: {
-    visible: true,
+    isOpen: true,
     children: 'This is the content inside the modal', // JSX элемент
   },
 };
 
 export const HiddenModal = {
   args: {
-    visible: false,
+    isOpen: false,
     children: 'This is the content inside the modal', // также JSX элемент
   },
 };

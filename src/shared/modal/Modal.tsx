@@ -1,23 +1,33 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import cn from 'classnames';
-import './Modal.css';
+import './Modal.scss';
+import { createPortal } from 'react-dom';
 
 interface IModalProps {
-  visible: boolean;
+  closeModal: () => void;
+  isOpen: boolean;
   children: React.ReactNode;
-  setIsVisible: (arg0: boolean) => void;
 }
 
-export const Modal: FC<IModalProps> = ({ visible, setIsVisible, children }) => {
-  return (
-    <div className={cn('overlay', { active: visible })}>
-      <div className="modal">
-        <div className="close-btn" onClick={() => setIsVisible(false)}>
-          x
-        </div>
-        <div className="content">{children}</div>
-      </div>
-      <div className="black"></div>
-    </div>
-  );
+export const Modal: FC<IModalProps> = ({ children, closeModal, isOpen }) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsVisible(isOpen);
+  }, [isOpen]);
+
+  return isOpen
+    ? createPortal(
+        <div className={cn('overlay', { active: isVisible })}>
+          <div className="modal">
+            <div className="close-btn" onClick={closeModal}>
+              x
+            </div>
+            <div className="content">{children}</div>
+          </div>
+          <div className="black"></div>
+        </div>,
+        document.body
+      )
+    : null;
 };
