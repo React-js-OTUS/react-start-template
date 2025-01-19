@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
-import { Logo } from '../logo/logo';
-import { Theme, useThemeContext } from '../context/theme-context/theme-context';
+import { Logo } from '../../logo/ui/Logo';
+import { Theme, useThemeContext } from '../../context/theme-context/theme-context';
 import classNames from 'classnames';
+import { Modal } from '../../modal/ui/Modal';
 import './header.scss';
-import { Modal } from '../modal/Modal';
 
 export const Header: FC = () => {
   const { theme, toggleTheme } = useThemeContext();

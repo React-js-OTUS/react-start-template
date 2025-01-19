@@ -1,7 +1,7 @@
 import React from 'react';
-import { Layout } from 'src/shared/layout/layout';
+import { Layout } from 'src/shared/layout/ui/Layout';
 import { ThemeProvider } from 'src/shared/context/theme-context/theme-context';
-import { ExampleCpomp } from 'src/shared/example-comp/example-comp';
+import { ExampleCpomp } from 'src/shared/example-comp/ExampleComp';
 
 import './App.scss';
 

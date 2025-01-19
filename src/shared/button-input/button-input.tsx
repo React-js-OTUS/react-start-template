@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { ModalInput } from '../modal-input/modal-input';
+import { ModalInput } from '../modal-input/ModalInput';
 
 interface ButtonInputProps {
   initialInputValue?: string;

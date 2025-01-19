@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { ModalInput } from './modal-input';
+import { ModalInput } from './ModalInput';
 
 const meta: Meta<typeof ModalInput> = {
   title: 'Components/ModalInput',

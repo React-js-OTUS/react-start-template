@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { ExampleCpomp } from './example-comp';
+import { ExampleCpomp } from './ExampleComp';
 
 const meta: Meta<typeof ExampleCpomp> = {
   title: 'Components/ExampleCpomp',

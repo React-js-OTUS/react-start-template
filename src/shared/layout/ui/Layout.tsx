@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Header } from '../header/header';
+import { Header } from '../../header/ui/Header';
 
-import './layout.css';
+import './layout.scss';
 
 interface LayoutProps {
   children: React.ReactNode;

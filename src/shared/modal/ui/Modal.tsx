@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import cn from 'classnames';
-import './Modal.scss';
+import './modal.scss';
 import { createPortal } from 'react-dom';
 
 interface IModalProps {
