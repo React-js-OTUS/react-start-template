@@ -3,10 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
 
 const port = 2233;
 const dist = path.join(__dirname, 'dist');
 const src = path.join(__dirname, 'src');
+const assets = path.join(src, 'assets');
 const host = 'localhost';
 
 module.exports = (_, args) => {
@@ -15,6 +17,11 @@ module.exports = (_, args) => {
     context: src,
     devServer: {
       open: true,
+      open: {
+        app: {
+          name: 'google chrome',
+        },
+      },
       port,
       hot: true,
       historyApiFallback: true,
@@ -63,6 +70,10 @@ module.exports = (_, args) => {
           ],
         },
         {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
+        },
+        {
           test: /\.svg/,
           type: 'asset/inline',
         },
@@ -99,6 +110,9 @@ module.exports = (_, args) => {
         typescript: {
           configFile: path.join(__dirname, 'tsconfig.json'),
         },
+      }),
+      new CopyWebPackPlugin({
+        patterns: [{ from: assets, to: dist, force: true }],
       }),
     ],
   };
