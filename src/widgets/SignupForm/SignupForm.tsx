@@ -5,7 +5,7 @@ import { t } from 'i18next';
 import { useDispatch } from 'react-redux';
 import { login, ProfileState } from 'src/store/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
-import { Api } from 'src/app/Api';
+import { instance } from 'src/shared/api/base/instance';
 
 type formProps = {
   email: string;
@@ -21,7 +21,7 @@ export const SignupForm: FC = () => {
 
   const onSubmit = async (data: formProps) => {
     try {
-      const response = await Api.post('signup', data);
+      const response = await instance.post('signup', data);
 
       const profile: ProfileState = {
         username: response.data.profile.email,

@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import s from './ProductForm.module.sass';
 import { useForm } from 'react-hook-form';
 import { t } from 'i18next';
 import { useDispatch } from 'react-redux';
-import { addProduct } from 'src/store/slices/productsSlice';
-import { Product } from 'src/homeworks/ts1/3_write';
-import { v4 } from 'uuid';
+import { addProduct, editProduct } from 'src/store/slices/productsSlice';
+import { ProductsApi } from 'src/shared/api/product/productsApi';
+import { useParams } from 'react-router-dom';
 
 type formProps = {
   name: string;
@@ -16,12 +16,14 @@ type formProps = {
 
 export const ProductForm: FC = () => {
   const dispatch = useDispatch();
+  const [title, setTitle] = useState('Продукт');
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     defaultValues: {
       name: '',
@@ -32,25 +34,77 @@ export const ProductForm: FC = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = (data: formProps) => {
-    const product: Product = {
-      id: v4(),
-      name: data.name,
-      photo: data.photo,
-      desc: data.description,
-      createdAt: '2024-12-06',
-      oldPrice: null,
-      price: parseFloat(data.price),
-      category: null,
-    };
+  const params = useParams();
+  const productId = params.id ? params.id : null;
 
-    dispatch(addProduct(product));
-    reset();
+  console.log(productId);
+
+  useEffect(() => {
+    if (productId) {
+      const fetch = async () => {
+        const product = await ProductsApi.getById(productId);
+        setTitle('Редактирование «' + product.name + '»');
+        setValue('name', product.name);
+        setValue('photo', product.photo);
+        setValue('description', product.desc);
+        setValue('price', product.price.toString());
+      };
+
+      fetch();
+    }
+  }, [productId, setValue]);
+
+  const onSubmitCreate = async (data: formProps) => {
+    try {
+      const productResponse = await ProductsApi.create({
+        name: data.name,
+        photo: data.photo,
+        desc: data.description,
+        oldPrice: null,
+        price: parseFloat(data.price),
+        categoryId: '664a53502c598d193429acf8',
+      });
+
+      dispatch(addProduct(productResponse));
+      reset();
+    } catch (error) {
+      let message = null;
+      const errors = error.response?.data?.errors || [];
+
+      if (errors.length > 0) {
+        message = errors[0]?.message;
+      }
+      alert(message);
+    }
+  };
+
+  const onSubmitUpdate = async (data: formProps) => {
+    try {
+      const productResponse = await ProductsApi.update(productId, {
+        name: data.name,
+        photo: data.photo,
+        desc: data.description,
+        oldPrice: null,
+        price: parseFloat(data.price),
+        categoryId: '664a53502c598d193429acf8',
+      });
+
+      dispatch(editProduct({ id: productId, ...productResponse }));
+      alert('Изменения успешно сохранены!');
+    } catch (error) {
+      let message = null;
+      const errors = error.response?.data?.errors || [];
+
+      if (errors.length > 0) {
+        message = errors[0]?.message;
+      }
+      alert(message);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={s.root}>
-      <h2>Продукт</h2>
+    <form onSubmit={handleSubmit(productId ? onSubmitUpdate : onSubmitCreate)} className={s.root}>
+      <h2>{title}</h2>
       <input
         type="text"
         placeholder={t`forms.ProductForm.name.placeholder`}

@@ -10,6 +10,7 @@ import { SignupPageToolkit } from 'src/pages/SignupPageToolkit/SignupPageToolkit
 
 type RouteType = {
   path: string;
+  url: string;
   element: FC;
   title: string;
   isVisible: (user: ProfileState) => void;
@@ -23,6 +24,7 @@ const isAdmin = (user: ProfileState) => user && user.role === 'admin';
 export const routes: RouteType[] = [
   {
     path: '/',
+    url: '/',
     element: ProductsPage,
     title: 'components.Header.products',
     isVisible: () => true,
@@ -30,6 +32,7 @@ export const routes: RouteType[] = [
   },
   {
     path: '/profile',
+    url: '/profile',
     element: ProfilePage,
     title: 'components.Header.profile',
     isVisible: isUser,
@@ -37,6 +40,7 @@ export const routes: RouteType[] = [
   },
   {
     path: '/cart',
+    url: '/cart',
     element: CartPage,
     title: 'components.Header.cart',
     isVisible: () => true,
@@ -44,6 +48,7 @@ export const routes: RouteType[] = [
   },
   {
     path: '/login',
+    url: '/login',
     element: LoginPage,
     title: 'components.Header.login',
     isVisible: isGuest,
@@ -51,6 +56,7 @@ export const routes: RouteType[] = [
   },
   {
     path: '/signup',
+    url: '/signup',
     element: SignupPage,
     title: 'components.Header.signup',
     isVisible: isGuest,
@@ -58,13 +64,15 @@ export const routes: RouteType[] = [
   },
   {
     path: '/signup-toolkit',
+    url: '/signup-toolkit',
     element: SignupPageToolkit,
     title: 'components.Header.signup_toolkit',
     isVisible: isGuest,
     isModal: false,
   },
   {
-    path: '/product',
+    path: '/product/:id?',
+    url: '/product',
     element: ProductForm,
     title: 'components.Header.product_new',
     isVisible: isAdmin,

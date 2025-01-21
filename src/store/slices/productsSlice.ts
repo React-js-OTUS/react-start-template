@@ -1,13 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { createRandomProduct, Product } from 'src/homeworks/ts1/3_write';
 import { RootState } from 'src/store';
+import { Product } from 'src/homeworks/ts1/3_write';
 
-let initialState: Product[] = [];
-
-for (let i = 0; i < 20; i++) {
-  initialState = [...initialState, createRandomProduct('2024-12-04')];
-}
+const initialState: Product[] = [];
 
 const productsSlice = createSlice({
   name: 'products',
@@ -26,9 +22,9 @@ const productsSlice = createSlice({
     removeProduct: (state, action: PayloadAction<Product>) => {
       state.filter((product) => product.id !== action.payload.id);
     },
-    loadMore: (state) => {
-      for (let i = 0; i < 20; i++) {
-        state.push(createRandomProduct('2024-12-04'));
+    loadMore: (state, action: PayloadAction<Product[]>) => {
+      for (const product of action.payload) {
+        state.push(product);
       }
     },
   },

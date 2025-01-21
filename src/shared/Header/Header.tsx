@@ -27,7 +27,7 @@ export const Header: FC = () => {
           .map((route) => (
             <NavLink
               key={route.path}
-              to={route.path}
+              to={route.url}
               className={isActive}
               state={{ background: route.isModal ? location : null }}
             >

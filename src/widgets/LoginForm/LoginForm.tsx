@@ -1,42 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import s from './LoginForm.module.sass';
 import { useForm } from 'react-hook-form';
 import { t } from 'i18next';
 import validator from 'validator';
 import { useDispatch } from 'react-redux';
 import { login, ProfileState } from 'src/store/slices/authSlice';
-import { v4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import { useSigninMutation } from 'src/store/api/authApi';
 
 type formProps = {
   email: string;
   password: string;
 };
 
-type DemoUser = {
-  email: string;
-  password: string;
-  profile: ProfileState;
+type ApiError = {
+  data: {
+    errors: {
+      message: string;
+    }[];
+  };
 };
-
-const demoUsers: DemoUser[] = [
-  {
-    email: 'user@example.com',
-    password: '123456',
-    profile: {
-      username: 'user',
-      role: 'user',
-    },
-  },
-  {
-    email: 'admin@example.com',
-    password: '1234567890',
-    profile: {
-      username: 'admin',
-      role: 'admin',
-    },
-  },
-];
 
 export const LoginForm: FC = () => {
   const {
@@ -54,39 +37,30 @@ export const LoginForm: FC = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [signin, { data, error, isLoading, isSuccess }] = useSigninMutation();
 
-  const onSubmit = (data: formProps) => {
-    const user = demoUsers.find((user) => user.email === data.email && user.password === data.password);
-
-    if (!user) {
-      alert('Неверный логин или пароль!');
-      reset();
-
-      return;
-    }
-
-    dispatch(login({ token: v4(), profile: user.profile }));
-
-    navigate('/profile');
+  const onSubmit = async (data: formProps) => {
+    await signin(data);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      const profile: ProfileState = {
+        username: data.profile.email,
+        role: 'admin',
+      };
+
+      dispatch(login({ token: data.token, profile: profile }));
+
+      navigate('/profile');
+      return;
+    } else {
+      reset();
+    }
+  }, [data, dispatch, isSuccess, navigate, reset]);
 
   return (
     <>
-      <div style={{ margin: '20px' }}>
-        <h3>Демо учетные записи:</h3>
-        {demoUsers.map((user) => {
-          return (
-            <div key={user.email} style={{ marginTop: '10px' }}>
-              <p>
-                <b>Email</b>: {user.email}
-              </p>
-              <p>
-                <b>Password</b>: {user.password}
-              </p>
-            </div>
-          );
-        })}
-      </div>
       <form onSubmit={handleSubmit(onSubmit)} className={s.root}>
         <h2>Вход</h2>
         <input
@@ -105,14 +79,16 @@ export const LoginForm: FC = () => {
           {...register('password', {
             required: t`errors.is_required`,
             minLength: {
-              value: 6,
+              value: 3,
               message: t`errors.too_short_password`,
             },
           })}
         />
         {errors.password && <p>{errors.password.message}</p>}
 
-        <button type={'submit'}>{t`forms.LoginForm.submit`}</button>
+        {error && <div className={s.error}>{(error as ApiError).data.errors[0].message}</div>}
+
+        <button type={'submit'} disabled={isLoading}>{t`forms.LoginForm.submit`}</button>
       </form>
     </>
   );
