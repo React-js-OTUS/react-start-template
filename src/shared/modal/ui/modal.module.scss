@@ -1,0 +1,36 @@
+.root{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal{
+  width: 600px;
+  height: 400px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.none {
+  display: none;
+}
+
+.box{
+ display: flex;
+  justify-content: flex-end;
+}
+.button {
+  cursor: pointer;
+  padding: 7px 15px;
+  margin: 5px;
+  border: none;
+  font-size:12px;
+  outline: none;
+  background-color: #3a3ad3;
+  color: #fff;
+  border-radius: 3px;
+}

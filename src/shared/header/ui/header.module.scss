@@ -1,0 +1,21 @@
+.header{
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282c34;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+}
+.navLink{
+  text-decoration: none;
+  text-wrap: nowrap;
+  color: #fff;
+}
