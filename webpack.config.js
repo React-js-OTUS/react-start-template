@@ -19,6 +19,9 @@ module.exports = (_, args) => {
       hot: true,
       historyApiFallback: true,
       host,
+      static: {
+        directory: path.join(__dirname, 'public'),
+      },
     },
     resolve: {
       modules: [src, 'node_modules'],

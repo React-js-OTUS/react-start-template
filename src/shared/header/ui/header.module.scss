@@ -1,12 +1,24 @@
-.header{
+.headerLight{
   position: sticky;
   top: 0;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
   background-color: #282c34;
 }
+
+.headerDark{
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
 
 .nav {
   display: flex;
@@ -14,8 +26,18 @@
   align-items: center;
   column-gap: 20px;
 }
-.navLink{
+.navLinkLight{
   text-decoration: none;
   text-wrap: nowrap;
   color: #fff;
+  padding: 5px 10px;
+  border: 1px solid currentColor;
+}
+
+.navLinkDark{
+  text-decoration: none;
+  text-wrap: nowrap;
+  padding: 5px 10px;
+  color: #282c34;
+  border: 1px solid currentColor;
 }

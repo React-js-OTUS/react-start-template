@@ -1,4 +1,4 @@
-.display {
+.displayLight {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +8,17 @@
   max-width: 500px;
   margin: 0 auto;
 }
-
+.displayDark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #fff;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+  color: #fff;
+}
 .title{
   text-transform: uppercase;
   padding: 0 10px 10px;
