@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 export interface BucketButtonProps {
     countNumber: number;
-    id: number;
+    id: string;
     
 }
 

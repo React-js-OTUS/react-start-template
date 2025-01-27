@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState,useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import Style from './product-from.module.css'
 import { measureMemory } from 'vm'
@@ -21,7 +21,7 @@ export interface IProductForm {
 
 export const ProductForm: FC = () => {
     const user = localStorage.getItem("user");
-    const { register, handleSubmit, formState } = useForm<IProductForm>({
+    const { register, handleSubmit, formState , watch} = useForm<IProductForm>({
         defaultValues: {
             name:  '',
             photo:  null,
@@ -38,14 +38,16 @@ export const ProductForm: FC = () => {
     const priceError = formState.errors.price;
     const categoryError = formState.errors.categoryId;
     const [categoryList, setCategoryList] = useState<Category[]>([])
-    const [page, setPage] = useState<CategoryFilters>( { pagination:{pageSize: 200, pageNumber: 1},sorting:{ type: 'ASC' , field: 'id'}})
+    const [page, setPage] = useState<CategoryFilters>( { pagination:{pageSize: 20, pageNumber: 1},sorting:{ type: 'ASC' , field: 'id'}})
     const { data: dataPage, error, isLoading, isFetching} = useGetCategoriesQuery(page);
     const [hasNextPage, setHasNextPage] = useState(true)
     const [addProduct, { data: addProdResult,isLoading: isLoadingAddingProd, error: addProdError, isError,isSuccess }] = useAddProductMutation()
     const [categoryId, setCategoryId] = useState("")
-    
+    const firstRender = useRef(true);
+   
 
     useEffect(() => {
+        if (!firstRender.current) {
         if (dataPage){
             if ( "data" in dataPage) {
                 console.log("data contains: ")
@@ -53,19 +55,17 @@ export const ProductForm: FC = () => {
                  setCategoryList(products => [...products, ...dataPage["data"]])
                  if ( categoryList )
                     if (categoryList.length < dataPage["pagination"]["total"])
-                {
-                    setHasNextPage(true)
+                    {
+                        setHasNextPage(true)
+                    }
                 }
             }
+        } else 
+        {
+            firstRender.current = false;
         }
         }, [dataPage])
-     
-    const getValue = (e: React.ChangeEvent<HTMLSelectElement>) =>{
-     console.log(e.target)
-    }
-    const handleOnChange = (e: any) => {
-        console.log(e)
-      };
+    
     const onSubmit = (data: any) => {
         console.log(data)
         let body:ProductBody  = { name: data.name, photo: data.photo,desc: data.desc, oldPrice: data.oldPrice, price: data.oldPrice,categoryId: data.categoryId}
@@ -113,16 +113,16 @@ export const ProductForm: FC = () => {
             
             <div className={Style.wrapper}>
             <label htmlFor="cat-select">Choose category:</label>
-            <select onChange={e => getValue(e)} id="cat-select"  size={4}
+            <select id="cat-select"  size={4}
                          {...register('categoryId')} >
             {categoryList && categoryList.map((value,index) => (
                 <option 
-                // ref={
-                //     categoryList.length === index + 1
-                //         ? lastProductElementRef
-                //         : null
-                // }
-                key={value.id} value={value.name}>
+                ref={
+                    categoryList.length === index + 1
+                        ? lastProductElementRef
+                        : null
+                }
+                key={value.id} value={value.id}>
                 {value.name}
                 </option>
             ))}

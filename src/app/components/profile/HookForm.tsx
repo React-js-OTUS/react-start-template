@@ -4,6 +4,7 @@ import { s } from './HookForm.module.css'
 import { measureMemory } from 'vm'
 import { useSelector } from 'react-redux';
 import { authSelectors } from '../../store/auth';
+import { ProfileGetResponse } from 'src/app/types/Profile';
 
 export interface IForm {
     email?: string
@@ -13,9 +14,11 @@ export interface IForm {
 }
 
 export const HookForm: FC = () => {
+    debugger;
     const auth = useSelector(authSelectors.get);
-    const user =  auth.user;
+    //const user =  auth.user;
     let r =  localStorage.getItem("user");
+    let user : ProfileGetResponse = JSON.parse(r);
     const { register, handleSubmit, formState } = useForm<IForm>({
         defaultValues: {
             email: user?.email ?? '',

@@ -4,7 +4,7 @@ import { AppState } from './store';
 import { stat } from 'fs';
 
 export type ItemCount = {
-  id: number,
+  id: string,
   count: number
 }
 const initialState = {

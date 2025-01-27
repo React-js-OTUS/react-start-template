@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {SignUpBody,ProductFilterQuery, ProductsResult, Product, ProductBody} from "../../types/RegisterTypes"
 import {Category,CategoryFilters,CategoryResponse} from "../../types/Category"
 import { ProductType } from 'src/app/services/Types';
+import { OrderPostRequest } from 'src/app/types/Orders';
 
 export const serverApi = createApi({
   reducerPath: 'serverApi',
@@ -40,14 +41,16 @@ export const serverApi = createApi({
     },
     }),
     registerUser: builder.mutation({
-      query: (body: SignUpBody ) => ({
+      query: (body: SignUpBody ) => (
+        {      
         url: `/signup`,
         method: 'POST',
         body: { email: body.email, password: body.password, commandId: body.commandId },
       })     
     }),
+    
     addProduct: builder.mutation({
-      
+  
       query: (body: ProductBody ) => ({
         url: `/products`,
         method: 'POST',
@@ -57,7 +60,17 @@ export const serverApi = createApi({
       },
       })     
     }),
+    addOrder: builder.mutation({
+      query: (body: OrderPostRequest ) => ({
+        url: `/orders`,
+        method: 'POST',
+        body: {  products: body.products, status: body.status},
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      })     
+    }),
   }),
 });
 
-export const { useGetProfileQuery,useRegisterUserMutation ,useGetProductsQuery ,useGetCategoriesQuery, useAddProductMutation} = serverApi;
+export const { useGetProfileQuery,useRegisterUserMutation ,useGetProductsQuery ,useGetCategoriesQuery, useAddProductMutation,useAddOrderMutation} = serverApi;

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 
 import NotFound from '../components/NotFound/NotFound'
 import Layout from '../components/Layout/layout.module'
@@ -18,13 +18,17 @@ import { RegisterForm } from '../components/registration_login/register'
 import { RegisterThunkForm } from '../components/registration_login/register-thunk'
 import { LoginForm } from '../components/registration_login/login'
 import ProductForm from '../components/Product/product-from'
+import { ModalForm } from '../components/Modal/modal-form.module'
 
 const Router = () => {
+    debugger;
 	const token = localStorage.getItem("token");
+    const location = useLocation();
+    const background = location.state && location.state.background;
 
     return (
         <BrowserRouter>
-            <Routes>
+            <Routes >
 			<Route path="/" element={<Layout />}>
 			<Route path= '/product-list' element={<ItemList/>} />
 			<Route path= '/bucket' element={<BucketList/>} />
@@ -37,20 +41,7 @@ const Router = () => {
 				</ProtectedRoute>
 			} />
 			<Route path= '/product' element={<ProductForm/>} />
-
 			</Route> 
-
-                {/* <Route path="/" element={<Layout />}>
-                    {routes.map((route) => {
-                        return (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={<route.component />}
-                            />
-                        )
-                    })}
-                </Route> */}
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>

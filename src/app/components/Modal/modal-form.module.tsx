@@ -2,12 +2,13 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { MouseEventHandler } from 'react'
 import Styles from './modal-form.module.css'
 import Portal, { createContainer } from '../Portal/portal'
+import { useNavigate } from "react-router-dom";
 
 interface ModalFormProps {
-    isVisible: boolean
-    modalContainerId: string
-    onClose: () => void
-    children: React.ReactNode
+    isVisible?: boolean
+    modalContainerId?: string
+    onClose?: () => void
+    children?: React.ReactNode
 }
 
 export const ModalForm: React.FC<ModalFormProps> = ({
@@ -17,13 +18,30 @@ export const ModalForm: React.FC<ModalFormProps> = ({
     children,
 }) => {
     const [isShowModal, setShowModal] = useState(false)
+    const navigate = useNavigate();
+    React.useEffect(() => {
+        document.body.classList.add("overflow-hidden");
+    
+        return () => {
+          document.body.classList.remove("overflow-hidden");
+        };
+      }, []);
+      
+      React.useEffect(() => {
+        document.body.classList.add("overflow-hidden");
+    
+        return () => {
+          document.body.classList.remove("overflow-hidden");
+        };
+      }, []);
+
     useEffect(() => {
         createContainer({ id: modalContainerId })
         setShowModal(true)
     }, [])
 
     const handleClose: MouseEventHandler<HTMLButtonElement> =
-        useCallback(() => {
+        useCallback(() => {            
             onClose?.()
         }, [onClose])
 
@@ -35,7 +53,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({
                         <button
                             type="button"
                             className={Styles.closeButton}
-                            onClick={handleClose}
+                            onClick={() => navigate(-1)}
                         >
                             Х
                         </button>

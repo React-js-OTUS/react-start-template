@@ -11,7 +11,7 @@ import {
     OperationShop,
     OperationShopShortProps,
 } from '../Operation.shop.short/operation-shop-short'
-import { Product, CreateRandomProduct } from 'src/homeworks/ts1/3_write'
+//import { Product, CreateRandomProduct } from 'src/homeworks/ts1/3_write'
 import useIntersectionObserver from 'src/app/hooks/useIntersectionObserver'
 import { OperationShopProps } from '../Operation.shop/operation-shop'
 import { ModalForm } from '../Modal/modal-form.module'
@@ -24,7 +24,7 @@ import { ProductType } from 'src/app/services/Types'
 import { authSelectors } from 'src/app/store/auth'
 import { useIsAdmin } from 'src/app/hooks/isAdmin'
 import { useGetProductsQuery, useGetProfileQuery} from 'src/app/features/api/ServerApi'
-import { ProductFilterQuery } from 'src/app/types/RegisterTypes'
+import { ProductFilterQuery,ProductsResult,Product } from 'src/app/types/RegisterTypes'
 import { data } from 'react-router-dom'
 
 export interface IItemContent {
@@ -36,7 +36,7 @@ const modalContainerId = 'modal_product_id'
 /* eslint-disable react/no-children-prop */
 export const ItemList: FC<IItemContent> = ({ returnNewItem, children }) => {
     const dispatch = useDispatch();
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState<Product[]>([])
     const [next, setNext] = useState(1)
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
@@ -124,9 +124,9 @@ export const ItemList: FC<IItemContent> = ({ returnNewItem, children }) => {
                             description={item.desc}
                             
                         />
-                        {isAdmin && <button type="button" onClick={handleModalOpen}>
+                        <button type="button" onClick={handleModalOpen}>
                             <span>Edit product</span>
-                        </button>}
+                        </button>
                         <button type="button" onClick={(e) => handleAddToCart({id:item.id, price:item.price ,photo: item.photo, name: item.name,
                         category_name: item.category.name,description: item.desc, caption : "dfjgg"},e)}>
                             <span>Add to cart</span>
@@ -145,7 +145,7 @@ export const ItemList: FC<IItemContent> = ({ returnNewItem, children }) => {
                                                 url: 'images/' + item.photo,
                                             },
                                         ]}
-                                        name={item.name}
+                                        name={item.name?? ""}
                                         category_name={item.category.name}
                                         description={item.desc}
                                     />

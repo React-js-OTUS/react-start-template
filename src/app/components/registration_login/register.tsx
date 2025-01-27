@@ -48,6 +48,7 @@ export const RegisterForm: FC = () => {
     const dispatch: AppDispatch = useDispatch();
 
     const onSubmit = (data: IRegisterData) => {
+        debugger;
         console.log(data)
         let body:SignUpBody  = { email: data.email, password: data.password,  commandId : uuidv4()}
         registerUser(body);
@@ -196,7 +197,7 @@ export const RegisterForm: FC = () => {
                     <p>{formState.errors.repeatPassword.message}</p>
                 )}
                 {passwordsNotMatchMessage && <p>{passwordsNotMatchMessage}</p>}
-                <button type="submit" onClick={handleSubmit(onSubmit)}>
+                <button type="submit" onClick={(e) => handleSubmit(onSubmit)}>
                     Send
                 </button>
                 

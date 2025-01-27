@@ -6,7 +6,7 @@ import { authSelectors } from '../../store/auth'
 import { useAuthGuard } from '../../hooks/useAuthGuard';
 
 const Layout = () => {
-	const token = useSelector(authSelectors.get).token;
+	const token = localStorage.getItem("token");
     //const token = localStorage.getItem("token")
 	useAuthGuard(token)
     return (

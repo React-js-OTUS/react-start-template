@@ -20,16 +20,18 @@ import { Image } from '../Custom-slider/image.slider'
 import { BucketButton } from '../Bucket-button/bucket-button'
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { addToBucket,deleteFromBucket,bucketListSelectors, ProductBucket } from '../../store/bucket';
-import { increase ,decrease, ItemCount , countSelectors} from 'src/app/store/count'
+import { increase ,decrease, ItemCount, countSelectors} from 'src/app/store/count'
 import { select } from 'redux-saga/effects'
 import { use } from 'storybook-static/984.cbbc5609.iframe.bundle'
+import { Order, OrderPostRequest } from 'src/app/types/Orders'
+import { useAddOrderMutation } from 'src/app/features/api/ServerApi'
 
 export interface IItemContent {
     returnNewItem?: (arg: string) => any
     children?: (props: any) => ReactNode
 }
 export interface IProductCart{
-  id: number
+  id: string
   price: number
   photo: string
   name: string
@@ -37,20 +39,23 @@ export interface IProductCart{
   description: string
   caption?: string
   count: number
+  checked?: boolean
 }
 
 const modalContainerId = 'modal_product_id'
 
 export const BucketList: FC<IItemContent> = ({ returnNewItem, children }) => {
     const countItems: ItemCount[] = useSelector(countSelectors.get).counts;
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState<OrderPostRequest>()
+
     const [next, setNext] = useState(1)
     const [loading, setLoading] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [cart_items,setCart_items] = useState<IProductCart[]>([])
     const dispatch = useDispatch();
-    
-
+    const [checked, setChecked] = useState(true);
+    const [addOrder, { data: addOrderResult,isLoading: isLoadingAddingProd, error: addProdError, isError,isSuccess }] = useAddOrderMutation()
+           
     let productCart =  useSelector(bucketListSelectors.get);
     let countItem   =  useSelector(countSelectors.get);
     
@@ -58,7 +63,7 @@ export const BucketList: FC<IItemContent> = ({ returnNewItem, children }) => {
       let res_array: IProductCart[] = []
       if (productCart.products){
       productCart.products.forEach(element => { 
-      let i = countItem.counts.find(c => c.id == parseInt(element.id))
+      let i = countItem.counts.find(c => c.id == element.id)
       if (i == undefined)
       {
         let payload: ProductBucket = element;
@@ -66,8 +71,8 @@ export const BucketList: FC<IItemContent> = ({ returnNewItem, children }) => {
       }
       if (!(i == undefined))
       {
-        res_array.push({id: parseInt(element.id), price:element.price, photo:element.photo,name: element.name, category_name: element.category_name,
-        description: element.description, caption:element.caption, count:i.count  } )
+        res_array.push({id: element.id, price:element.price, photo:element.photo,name: element.name, category_name: element.category_name,
+        description: element.description, caption:element.caption, count:i.count} )
       }
       });
         setCart_items(res_array)}
@@ -82,19 +87,52 @@ export const BucketList: FC<IItemContent> = ({ returnNewItem, children }) => {
     useEffect(() => {
         loadMoreProducts()
     }, [loadMoreProducts])
+   
+    useEffect(() => {
+        console.log(addOrderResult);
+        let order: Order 
+        (isSuccess) ? order = addOrderResult : {}
+        if ( order && "id" in order)
+        {
+            setCart_items(cart_items.filter(c => c.checked != true ));
+        }
+      //  setCart_items(cart_items.filter(c => c.checked != true ));
+    }, [addOrderResult])
+   
 
     const lastProductElementRef = useIntersectionObserver<HTMLLIElement>(
         () => setNext((prev) => prev + 1),
         [loading]
     )
 
- 
+    const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>,index:number) => {
+        const checked = e.target.checked;
+        setCart_items(items => {
+  
+          return [
+  
+            ...items.slice(0, index),
+  
+            {...items[index], checked},
+  
+            ...items.slice(index + 1),
+          ]
+        })
+    }
 
+     const createOrderHandle = () => {
+        let body:OrderPostRequest = {
+            products: []
+        };
+        let products = cart_items.filter(c => c.checked == true );
+        products.map(c => body.products.push({id:c.id,quantity: c.count}))
+        addOrder(body);
+    }
+    
     return (
-        <div>
+        <div >
             <ul>
                 {cart_items.map((item, index) =>
-               
                 (
                     <li
                         key={item.id}
@@ -104,7 +142,9 @@ export const BucketList: FC<IItemContent> = ({ returnNewItem, children }) => {
                         //         : null
                         // }
                     >
+                        
                         {children && children(item)}
+                        <input type="checkbox"   onChange={(e) => handleCheckBox(e, index)} />
                         <OperationShop
                             photo={item.photo}
                             price={item.price}
@@ -117,6 +157,7 @@ export const BucketList: FC<IItemContent> = ({ returnNewItem, children }) => {
                     </li>
                 ))}
             </ul>
+            <button type="button" onClick={createOrderHandle}> Create Order</button>
             {loading && <p>Loading...</p>}
         </div>
     )
