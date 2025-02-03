@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: sticky;
+  top: 0;
+}
+
+.header.light {
+  background-color: lightgray;
+}
+
+.header.dark {
+  background-color: #333333;
+}

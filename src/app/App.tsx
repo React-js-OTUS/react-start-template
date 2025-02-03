@@ -1,17 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Layout } from 'src/shared/layout/ui/Layout';
+import { ThemeProvider } from 'src/shared/context/theme-context/theme-context';
+import { LanguageProvider } from 'src/shared/context/lang-context/lang-context';
+import { ExampleCpomp } from 'src/shared/example-comp/ExampleComp';
+import './lang/lang';
+import './App.scss';
+
+import '../styles.scss';
 
 function App() {
+  const exampleArray = [...Array(5).keys()].map((i) => i + 1);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Текст писать тут
-        </p>
-      </header>
-    </div>
+    <ThemeProvider>
+      <LanguageProvider>
+        <Layout>
+          <header className="App-header">
+            <div className="content">
+              {exampleArray.map((i) => (
+                <ExampleCpomp key={i} />
+              ))}
+            </div>
+          </header>
+        </Layout>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 
