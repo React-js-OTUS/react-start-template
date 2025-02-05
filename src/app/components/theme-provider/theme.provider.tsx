@@ -18,7 +18,6 @@ export interface  ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({themeName,children }) => {
-    debugger;
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', themeName)
        

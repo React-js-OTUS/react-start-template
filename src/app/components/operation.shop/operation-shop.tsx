@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { MouseEventHandler, ReactElement, ReactNode } from "react";
 import Styles from './operation-shop.module.css';
 import { compareAsc, format } from "date-fns";
-import {ImageSlider,Image}  from '../custom-slider/image.slider';
+import {ImageSlider,Image}  from '../Custom-slider/image.slider';
 
 export interface OperationShopProps {
     price: number | null;

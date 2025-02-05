@@ -8,23 +8,17 @@ export interface ShowModalProps {
 }
 
 export const ShowModal: React.FC<ShowModalProps> = ({child }) => {
-    const [modalVisible, setModalVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const [text, setText] = useState("");
 
-    const handleClose = () => { setModalVisible(false)};
-
-   
-  useEffect(() => {
-    
-   
-  }, [modalVisible]);
+    const handleClose = () => { setIsVisible(false)};
 
     let name = "";
     return (
         <div >
             <input type="text"  id = "name"  onChange={e => setText(e.target.value)}/> 
-            <button onClick={() => setModalVisible(true)}>Open</button>
-            <ModalForm isVisible= {modalVisible} onClose = {handleClose} children = {text}  />
+            <button onClick={() => setIsVisible(true)}>Open</button>
+            <ModalForm isVisible= {isVisible} onClose = {handleClose} children = {text}  />
         </div>
       );
 }

@@ -17,11 +17,7 @@ export interface  LangProviderProps {
 }
 
 export const LangProvider: React.FC<LangProviderProps> = ({langName,children }) => {
-    debugger;
-    useEffect(() => {
-        
-       
-      }, [])
+    
     return (
         <LangContext.Provider value={{langName}}>            
             {children}

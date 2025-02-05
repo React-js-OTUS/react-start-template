@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState,useLayoutEffect }  from 'react';
 import logo from './logo.svg';
 import Styles from './App.css';
-import {ThemeContext,ThemeProvider,Theme} from "./components/theme-provider/theme.provider";
-import {LangContext,LangProvider,Lang} from "./components/lang-provider /lang.provider";
-import {ButtonGroup} from "./components/theme-toggler/group-buttons"
+import {ThemeContext,ThemeProvider,Theme} from "./components/Theme-provider/theme.provider";
+import {LangContext,LangProvider,Lang} from "./components/Lang-provider /lang.provider";
+import {ButtonGroup} from "./components/Theme-toggler/group-buttons"
 import { useContext } from "react";
 import { useTranslation } from 'react-i18next';;
  
